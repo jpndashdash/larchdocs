@@ -430,21 +430,28 @@ div.rendered_html tbody tr:hover {
 </style>
 <div class="section" id="MTC-Work-Mode-Choice-Data">
 <h1>MTC Work Mode Choice Data<a class="headerlink" href="#MTC-Work-Mode-Choice-Data" title="Permalink to this headline">¶</a></h1>
-<p>The MTC sample dataset is the same data used in the Self Instructing Manual for discrete choice modeling:</p>
-<blockquote>
-<div>The San Francisco Bay Area work mode choice data set comprises 5029 home-to-work commute trips in the San Francisco Bay Area. The data is drawn from the San Francisco Bay Area Household Travel Survey conducted by the Metropolitan Transportation Commission (MTC) in the spring and fall of 1990. This survey included a one day travel diary for each household member older than five years and detailed individual and household socio-demographic information.</div></blockquote>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">larch</span>
-<span class="kn">import</span> <span class="nn">pandas</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">gzip</span>
+<span></span><span class="kn">import</span> <span class="nn">larch</span><span class="o">,</span> <span class="nn">pandas</span><span class="o">,</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">gzip</span>
+<span class="n">larch</span><span class="o">.</span><span class="n">__version__</span>
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&#39;5.4.0&#39;
+</pre></div>
+</div>
+</div>
+<p>The MTC sample dataset is the same data used in the Self Instructing Manual for discrete choice modeling:</p>
+<blockquote>
+<div>The San Francisco Bay Area work mode choice data set comprises 5029 home-to-work commute trips in the San Francisco Bay Area. The data is drawn from the San Francisco Bay Area Household Travel Survey conducted by the Metropolitan Transportation Commission (MTC) in the spring and fall of 1990. This survey included a one day travel diary for each household member older than five years and detailed individual and household socio-demographic information.</div></blockquote>
 <p>In this example we will import the MTC example dataset, starting from a csv
 text file in <a class="reference internal" href="../data-fundamentals.html#idca"><span class="std std-ref">idca</span></a> format.  Suppose that data file is gzipped, named “MTCwork.csv.gz” and
 is located in the current directory (use <a class="reference external" href="https://docs.python.org/3.7/library/os.html#os.getcwd" title="(in Python v3.7)"><code class="xref py py-func docutils literal notranslate"><span class="pre">os.getcwd()</span></code></a> to see what is the
@@ -495,8 +502,7 @@ casenum,altnum,chose,ivtt,ovtt,tottime,totcost,hhid,perid,numalts,dist,wkzone,hm
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">example_file</span><span class="p">(</span><span class="s2">&quot;MTCwork.csv.gz&quot;</span><span class="p">))</span>
-<span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s1">&#39;casenum&#39;</span><span class="p">,</span><span class="s1">&#39;altnum&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">example_file</span><span class="p">(</span><span class="s2">&quot;MTCwork.csv.gz&quot;</span><span class="p">),</span> <span class="n">index_col</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;casenum&#39;</span><span class="p">,</span><span class="s1">&#39;altnum&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -505,7 +511,7 @@ casenum,altnum,chose,ivtt,ovtt,tottime,totcost,hhid,perid,numalts,dist,wkzone,hm
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+<span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -825,7 +831,7 @@ casenum,altnum,chose,ivtt,ovtt,tottime,totcost,hhid,perid,numalts,dist,wkzone,hm
       <td>1</td>
     </tr>
     <tr>
-      <th rowspan="2" valign="top">3</th>
+      <th rowspan="4" valign="top">3</th>
       <th>1</th>
       <td>1</td>
       <td>8.60</td>
@@ -873,9 +879,82 @@ casenum,altnum,chose,ivtt,ovtt,tottime,totcost,hhid,perid,numalts,dist,wkzone,hm
       <td>1</td>
       <td>1</td>
     </tr>
+    <tr>
+      <th>3</th>
+      <td>0</td>
+      <td>15.60</td>
+      <td>6.0</td>
+      <td>21.60</td>
+      <td>10.79</td>
+      <td>5</td>
+      <td>1</td>
+      <td>2</td>
+      <td>4.10</td>
+      <td>696</td>
+      <td>...</td>
+      <td>3</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.33</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0</td>
+      <td>16.87</td>
+      <td>21.4</td>
+      <td>38.27</td>
+      <td>105.00</td>
+      <td>5</td>
+      <td>1</td>
+      <td>2</td>
+      <td>4.10</td>
+      <td>696</td>
+      <td>...</td>
+      <td>3</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.33</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <th>1</th>
+      <td>0</td>
+      <td>30.60</td>
+      <td>8.5</td>
+      <td>39.10</td>
+      <td>417.32</td>
+      <td>6</td>
+      <td>1</td>
+      <td>2</td>
+      <td>14.58</td>
+      <td>665</td>
+      <td>...</td>
+      <td>2</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1.00</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
   </tbody>
 </table>
-<p>12 rows × 36 columns</p>
+<p>15 rows × 36 columns</p>
 </div></div>
 </div>
 <div class="nbinput docutils container">
@@ -895,42 +974,44 @@ casenum,altnum,chose,ivtt,ovtt,tottime,totcost,hhid,perid,numalts,dist,wkzone,hm
 &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
 MultiIndex: 22033 entries, (1, 1) to (5029, 6)
 Data columns (total 36 columns):
-chose       22033 non-null int64
-ivtt        22033 non-null float64
-ovtt        22033 non-null float64
-tottime     22033 non-null float64
-totcost     22033 non-null float64
-hhid        22033 non-null int64
-perid       22033 non-null int64
-numalts     22033 non-null int64
-dist        22033 non-null float64
-wkzone      22033 non-null int64
-hmzone      22033 non-null int64
-rspopden    22033 non-null float64
-rsempden    22033 non-null float64
-wkpopden    22033 non-null float64
-wkempden    22033 non-null float64
-vehavdum    22033 non-null int64
-femdum      22033 non-null int64
-age         22033 non-null int64
-drlicdum    22033 non-null int64
-noncadum    22033 non-null int64
-numveh      22033 non-null int64
-hhsize      22033 non-null int64
-hhinc       22033 non-null float64
-famtype     22033 non-null int64
-hhowndum    22033 non-null int64
-numemphh    22033 non-null int64
-numadlt     22033 non-null int64
-nmlt5       22033 non-null int64
-nm5to11     22033 non-null int64
-nm12to16    22033 non-null int64
-wkccbd      22033 non-null int64
-wknccbd     22033 non-null int64
-corredis    22033 non-null int64
-vehbywrk    22033 non-null float64
-vocc        22033 non-null int64
-wgt         22033 non-null int64
+ #   Column    Non-Null Count  Dtype
+---  ------    --------------  -----
+ 0   chose     22033 non-null  int64
+ 1   ivtt      22033 non-null  float64
+ 2   ovtt      22033 non-null  float64
+ 3   tottime   22033 non-null  float64
+ 4   totcost   22033 non-null  float64
+ 5   hhid      22033 non-null  int64
+ 6   perid     22033 non-null  int64
+ 7   numalts   22033 non-null  int64
+ 8   dist      22033 non-null  float64
+ 9   wkzone    22033 non-null  int64
+ 10  hmzone    22033 non-null  int64
+ 11  rspopden  22033 non-null  float64
+ 12  rsempden  22033 non-null  float64
+ 13  wkpopden  22033 non-null  float64
+ 14  wkempden  22033 non-null  float64
+ 15  vehavdum  22033 non-null  int64
+ 16  femdum    22033 non-null  int64
+ 17  age       22033 non-null  int64
+ 18  drlicdum  22033 non-null  int64
+ 19  noncadum  22033 non-null  int64
+ 20  numveh    22033 non-null  int64
+ 21  hhsize    22033 non-null  int64
+ 22  hhinc     22033 non-null  float64
+ 23  famtype   22033 non-null  int64
+ 24  hhowndum  22033 non-null  int64
+ 25  numemphh  22033 non-null  int64
+ 26  numadlt   22033 non-null  int64
+ 27  nmlt5     22033 non-null  int64
+ 28  nm5to11   22033 non-null  int64
+ 29  nm12to16  22033 non-null  int64
+ 30  wkccbd    22033 non-null  int64
+ 31  wknccbd   22033 non-null  int64
+ 32  corredis  22033 non-null  int64
+ 33  vehbywrk  22033 non-null  float64
+ 34  vocc      22033 non-null  int64
+ 35  wgt       22033 non-null  int64
 dtypes: float64(11), int64(25)
 memory usage: 6.2 MB
 </pre></div></div>
@@ -940,24 +1021,8 @@ memory usage: 6.2 MB
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">d</span> <span class="o">=</span> <span class="n">larch</span><span class="o">.</span><span class="n">DataFrames</span><span class="o">.</span><span class="n">from_idce</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">choice</span><span class="o">=</span><span class="s1">&#39;chose&#39;</span><span class="p">,</span> <span class="n">crack</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-converting data_co to &lt;class &#39;numpy.float64&#39;&gt;
-</pre></div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">d</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+<span></span><span class="n">d</span> <span class="o">=</span> <span class="n">larch</span><span class="o">.</span><span class="n">DataFrames</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">ch</span><span class="o">=</span><span class="s1">&#39;chose&#39;</span><span class="p">,</span> <span class="n">crack</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -966,46 +1031,11 @@ converting data_co to &lt;class &#39;numpy.float64&#39;&gt;
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-larch.DataFrames:
+larch.DataFrames:  (not computation-ready)
   n_cases: 5029
   n_alts: 6
-  data_ce:
-    - ivtt
-    - ovtt
-    - tottime
-    - totcost
-  data_co:
-    - hhid
-    - perid
-    - numalts
-    - dist
-    - wkzone
-    - hmzone
-    - rspopden
-    - rsempden
-    - wkpopden
-    - wkempden
-    - vehavdum
-    - femdum
-    - age
-    - drlicdum
-    - noncadum
-    - numveh
-    - hhsize
-    - hhinc
-    - famtype
-    - hhowndum
-    - numemphh
-    - numadlt
-    - nmlt5
-    - nm5to11
-    - nm12to16
-    - wkccbd
-    - wknccbd
-    - corredis
-    - vehbywrk
-    - vocc
-    - wgt
+  data_ce: 5 variables, 22033 rows
+  data_co: 31 variables
   data_av: &lt;populated&gt;
   data_ch: chose
 </pre></div></div>
@@ -1017,7 +1047,7 @@ important for larger datasets (the data sample included is only a tiny extract o
 that might be available for this kind of model), as breaking the data into seperate <a class="reference internal" href="../data-fundamentals.html#idca"><span class="std std-ref">idca</span></a> and <a class="reference internal" href="../data-fundamentals.html#idco"><span class="std std-ref">idco</span></a> parts is
 a relatively expensive operation, and it is not actually required for most model structures.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1026,7 +1056,7 @@ a relatively expensive operation, and it is not actually required for most model
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -1035,7 +1065,7 @@ a relatively expensive operation, and it is not actually required for most model
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1045,7 +1075,7 @@ a relatively expensive operation, and it is not actually required for most model
 </div>
 <p>The set of all possible alternative codes is deduced automatically from all the values in the <code class="docutils literal notranslate"><span class="pre">altid</span></code> column. However, the alterative codes are not very descriptive when they are set automatically, as the csv data file does not have enough information to tell what each alternative code number means.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1061,7 +1091,7 @@ a relatively expensive operation, and it is not actually required for most model
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1070,7 +1100,7 @@ a relatively expensive operation, and it is not actually required for most model
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -1102,7 +1132,7 @@ a relatively expensive operation, and it is not actually required for most model
     <p>
         &copy; Copyright 2010-2019, Jeffrey Newman
       <span class="lastupdated">
-        Last updated on May 04, 2020.
+        Last updated on May 05, 2020.
       </span>
 
     </p>
