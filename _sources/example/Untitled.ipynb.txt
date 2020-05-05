@@ -1,0 +1,274 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import larch"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from larch import OMX\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "x = OMX(\"/Users/jpn/anaconda3/conda-bld/larch_1574126580637/work/larch/data_warehouse/exampville_skims.omx\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<larch.OMX> ⋯/exampville_skims.omx\n",
+       " |  shape:(40, 40)\n",
+       " |  data:\n",
+       " |    AUTO_COST    (float64)\n",
+       " |    AUTO_DIST    (float64)\n",
+       " |    AUTO_TIME    (float64)\n",
+       " |    BIKE_TIME    (float64)\n",
+       " |    TRANSIT_FARE (float64)\n",
+       " |    TRANSIT_IVTT (float64)\n",
+       " |    TRANSIT_OVTT (float64)\n",
+       " |    WALK_DIST    (float64)\n",
+       " |    WALK_TIME    (float64)\n",
+       " |  lookup:\n",
+       " |    TAZ_AREA_TYPE (40 |S3)\n",
+       " |    TAZ_ID        (40 int64)"
+      ]
+     },
+     "execution_count": 4,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "x"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([b'SUB', b'SUB', b'URB', b'URB', b'SUB', b'URB', b'SUB', b'SUB',\n",
+       "       b'SUB', b'SUB', b'SUB', b'SUB', b'SUB', b'SUB', b'SUB', b'SUB',\n",
+       "       b'SUB', b'SUB', b'SUB', b'SUB', b'SUB', b'SUB', b'SUB', b'SUB',\n",
+       "       b'URB', b'SUB', b'SUB', b'URB', b'SUB', b'SUB', b'SUB', b'SUB',\n",
+       "       b'SUB', b'SUB', b'URB', b'CBD', b'SUB', b'SUB', b'SUB', b'SUB'],\n",
+       "      dtype='|S3')"
+      ]
+     },
+     "execution_count": 9,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "x.TAZ_AREA_TYPE[:]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 40,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "bytes"
+      ]
+     },
+     "execution_count": 40,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "import numpy\n",
+    "\n",
+    "value = b\"0.2\"\n",
+    "type(value)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 41,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "numpy.bytes_"
+      ]
+     },
+     "execution_count": 41,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "stvalue = numpy.array(value)\n",
+    "\n",
+    "value = stvalue[()]\n",
+    "\n",
+    "type(value)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 42,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'S'"
+      ]
+     },
+     "execution_count": 42,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "value.dtype.kind"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 43,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "True"
+      ]
+     },
+     "execution_count": 43,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "value.shape == ()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 44,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(False, False, True)"
+      ]
+     },
+     "execution_count": 44,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "isinstance(value, numpy.ndarray), value.dtype.kind == 'U', value.shape == ()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 45,
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "TypeError",
+     "evalue": "byte indices must be integers or slices, not tuple",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mTypeError\u001b[0m                                 Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-45-5f3b3466f9fd>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0mvalue\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mencode\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m'utf-8'\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[0;31mTypeError\u001b[0m: byte indices must be integers or slices, not tuple"
+     ]
+    }
+   ],
+   "source": [
+    "value[()].encode('utf-8')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 46,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "b'cnumpy.core.multiarray\\nscalar\\np0\\n(cnumpy\\ndtype\\np1\\n(VS3\\np2\\nI0\\nI1\\ntp3\\nRp4\\n(I3\\nV|\\np5\\nNNNI3\\nI1\\nI0\\ntp6\\nbc_codecs\\nencode\\np7\\n(V0.2\\np8\\nVlatin1\\np9\\ntp10\\nRp11\\ntp12\\nRp13\\n.'"
+      ]
+     },
+     "execution_count": 46,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "import pickle\n",
+    "pickle.dumps(value, 0)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Greenhouse",
+   "language": "python",
+   "name": "greenhouse"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.3"
+  },
+  "widgets": {
+   "application/vnd.jupyter.widget-state+json": {
+    "state": {},
+    "version_major": 2,
+    "version_minor": 0
+   }
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}

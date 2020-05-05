@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Model &mdash; Larch 5.3.0 documentation</title>
+  <title>Model &mdash; Larch 5.4.0 documentation</title>
   
 
   
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                5.3.0
+                5.4.0
               </div>
             
           
@@ -96,6 +96,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Model</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#utility-function-definition">Utility Function Definition</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#parameter-manipulation">Parameter Manipulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#estimation-and-application">Estimation and Application</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#scikit-learn-interface">Scikit-Learn Interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#reporting-and-outputs">Reporting and Outputs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#visualization-tools">Visualization Tools</a></li>
@@ -197,7 +198,7 @@
 <p>A <a class="reference internal" href="#larch.Model" title="larch.Model"><code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></a> is the core object used to represent a discrete choice model.</p>
 <dl class="class">
 <dt id="larch.Model">
-<em class="property">class </em><code class="descclassname">larch.</code><code class="descname">Model</code><span class="sig-paren">(</span><em>utility_ca=None</em>, <em>utility_co=None</em>, <em>quantity_ca=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#larch.Model" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">larch.</code><code class="descname">Model</code><span class="sig-paren">(</span><em>utility_ca=None</em>, <em>utility_co=None</em>, <em>quantity_ca=None</em>, <em>constraints=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#larch.Model" title="Permalink to this definition">¶</a></dt>
 <dd><p>A discrete choice model.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -307,7 +308,7 @@ and will render the complete utility function in a mathematically correct form.<
 <dl class="method">
 <dt id="larch.Model.set_value">
 <code class="descclassname">Model.</code><code class="descname">set_value</code><span class="sig-paren">(</span><em>self</em>, <em>name</em>, <em>value=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#larch.Model.set_value" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set the value for a model parameter.</p>
+<dd><p>Set the value for a single model parameter.</p>
 <p>This function will set the current value of a parameter.
 Unless explicitly instructed with an alternate value,
 the new value will also be saved as the “initial” value
@@ -362,6 +363,184 @@ certain other modeling tasks are performed.</li>
 </table>
 </dd></dl>
 
+<dl class="method">
+<dt id="larch.Model.set_values">
+<code class="descclassname">Model.</code><code class="descname">set_values</code><span class="sig-paren">(</span><em>self</em>, <em>values=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#larch.Model.set_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the parameter values for one or more parameters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>values</strong> (<em>{'null'</em><em>, </em><em>'init'</em><em>, </em><em>'best'</em><em>, </em><em>array-like</em><em>, </em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>, </em><em>scalar}</em><em>, </em><em>optional</em>) – New values to set for the parameters.
+If ‘null’ or ‘init’, the current values are set
+equal to the null or initial values given in
+the ‘nullvalue’ or ‘initvalue’ column of the
+parameter frame, respectively.
+If ‘best’, the current values are set equal to
+the values given in the ‘best’ column of the
+parameter frame, if that columns exists,
+otherwise a ValueError exception is raised.
+If given as array-like, the array must be a
+vector with length equal to the length of the
+parameter frame, and the given vector will replace
+the current values.  If given as a dictionary,
+the dictionary is used to update <cite>kwargs</cite> before
+they are processed.</li>
+<li><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Any keyword arguments (or if <cite>values</cite> is a
+dictionary) are used to update the included named
+parameters only.  A warning will be given if any key of
+the dictionary is not found among the existing named
+parameters in the parameter frame, and the value
+associated with that key is ignored.  Any parameters
+not named by key in this dictionary are not changed.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>Setting parameters both in the <cite>values</cite> argument and
+through keyword assignment is not explicitly disallowed,
+although it is not recommended and may be disallowed in the future.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#ValueError" title="(in Python v3.7)"><strong>ValueError</strong></a> – If setting to ‘best’ but there is no ‘best’ column in
+    the <cite>pf</cite> parameters DataFrame.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="estimation-and-application">
+<h2>Estimation and Application<a class="headerlink" href="#estimation-and-application" title="Permalink to this headline">¶</a></h2>
+<dl class="method">
+<dt id="larch.Model.load_data">
+<code class="descclassname">Model.</code><code class="descname">load_data</code><span class="sig-paren">(</span><em>self</em>, <em>dataservice=None</em>, <em>autoscale_weights=True</em>, <em>log_warnings=True</em><span class="sig-paren">)</span><a class="headerlink" href="#larch.Model.load_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load dataframes as required from the dataservice.</p>
+<p>This method prepares the data for estimation. It is used to
+pre-process the data, extracting the required values, pre-computing
+the values of fixed expressions, and assembling the results into
+contiguous arrays suitable for computing the log likelihood values
+efficiently.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>dataservice</strong> (<a class="reference internal" href="dataservice.html#larch.DataService" title="larch.DataService"><em>DataService</em></a><em>, </em><em>optional</em>) – A dataservice from which to load data.  If a dataservice
+has not been previously defined for this model, this
+argument is not optional.</li>
+<li><strong>autoscale_weights</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>default True</em>) – If True and data_wt is not None, the loaded dataframes will
+have the weights automatically scaled such that the average
+value for data_wt is 1.0.  See <cite>autoscale_weights</cite> for more
+information.</li>
+<li><strong>log_warnings</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>default True</em>) – Emit warnings in the logger if choice, avail, or weight is
+not included in <cite>req_data</cite> but is set in the dataservice, and
+thus returned by default even though it was not requested.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#ValueError" title="(in Python v3.7)"><strong>ValueError</strong></a> – If no dataservice is given nor pre-defined.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="larch.Model.maximize_loglike">
+<code class="descclassname">Model.</code><code class="descname">maximize_loglike</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#larch.Model.maximize_loglike" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maximize the log likelihood.</p>
+<p>The <cite>dataframes</cite> for this model should previously have been
+prepared using the <cite>load_data</cite> method.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – The optimization method to use.  See scipy.optimize for
+most possibilities, or use ‘BHHH’. Defaults to SLSQP if
+there are any constraints or finite parameter bounds,
+otherwise defaults to BHHH.</li>
+<li><strong>quiet</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>default False</em>) – Whether to suppress the dashboard.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A dictionary of results, including final log likelihood,
+elapsed time, and other statistics.  The exact items
+included in output will vary by estimation method.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">dictx</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#ValueError" title="(in Python v3.7)"><strong>ValueError</strong></a> – If the <cite>dataframes</cite> are not already loaded.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="larch.Model.calculate_parameter_covariance">
+<code class="descclassname">Model.</code><code class="descname">calculate_parameter_covariance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#larch.Model.calculate_parameter_covariance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the parameter covariance matrix.</p>
+<p>This function computes the parameter covariance by
+taking the inverse of the hessian (2nd derivative
+of log likelihood with respect to the parameters.)</p>
+<p>It does not return values directly, but rather stores
+the result in <cite>covariance_matrix</cite>, and computes the
+standard error of the estimators (i.e. the square root
+of the diagonal) and stores those values in <cite>pf[‘std_err’]</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>like_ratio</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>default True</em>) – For parameters where the</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="larch.Model.estimate">
+<code class="descclassname">Model.</code><code class="descname">estimate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#larch.Model.estimate" title="Permalink to this definition">¶</a></dt>
+<dd><p>A convenience method to load data, maximize loglike, and get covariance.</p>
+<p>This runs the following methods in order:
+- load_data
+- maximize_loglike
+- calculate_parameter_covariance</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>dataservice</strong> (<a class="reference internal" href="dataservice.html#larch.DataService" title="larch.DataService"><em>DataService</em></a><em>, </em><em>optional</em>) – A dataservice from which to load data.  If a dataservice
+has not been previously defined for this model, this
+argument is not optional.</li>
+<li><strong>autoscale_weights</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>default True</em>) – If True and data_wt is not None, the loaded dataframes will
+have the weights automatically scaled such that the average
+value for data_wt is 1.0.  See <cite>autoscale_weights</cite> for more
+information.</li>
+<li><strong>**kwargs</strong> – All other keyword arguments are passed through to
+<cite>maximize_loglike</cite>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dictx</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </div>
 <div class="section" id="scikit-learn-interface">
 <h2>Scikit-Learn Interface<a class="headerlink" href="#scikit-learn-interface" title="Permalink to this headline">¶</a></h2>
@@ -374,7 +553,7 @@ certain other modeling tasks are performed.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>X</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.25.3)"><em>pandas.DataFrame</em></a>) – This DataFrame can be in idca, idce, or idco formats.
+<li><strong>X</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.0.3)"><em>pandas.DataFrame</em></a>) – This DataFrame can be in idca, idce, or idco formats.
 If given in idce format, this is a DataFrame with <em>n_casealts</em> rows, and
 a two-level MultiIndex.</li>
 <li><strong>y</strong> (<em>array-like</em><em> or </em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The target choice values.  If given as a <code class="docutils literal notranslate"><span class="pre">str</span></code>, use that named column of <cite>X</cite>.</li>
@@ -404,7 +583,7 @@ To recover the probability, which is probably what you want (pun intended), see
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>X</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.25.3)"><em>pandas.DataFrame</em></a>) – </td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>X</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.0.3)"><em>pandas.DataFrame</em></a>) – </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>y</strong> – The predicted choices.</td>
 </tr>
@@ -422,7 +601,7 @@ To recover the probability, which is probably what you want (pun intended), see
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>X</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.25.3)"><em>pandas.DataFrame</em></a>) – </td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>X</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.0.3)"><em>pandas.DataFrame</em></a>) – </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>y</strong> – The predicted probabilities.</td>
 </tr>
@@ -437,8 +616,8 @@ To recover the probability, which is probably what you want (pun intended), see
 <h2>Reporting and Outputs<a class="headerlink" href="#reporting-and-outputs" title="Permalink to this headline">¶</a></h2>
 <dl class="method">
 <dt id="larch.Model.parameter_summary">
-<code class="descclassname">Model.</code><code class="descname">parameter_summary</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#larch.Model.parameter_summary" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create an XHTML summary of parameter values.</p>
+<code class="descclassname">Model.</code><code class="descname">parameter_summary</code><span class="sig-paren">(</span><em>self</em>, <em>output=u'df'</em><span class="sig-paren">)</span><a class="headerlink" href="#larch.Model.parameter_summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a tabular summary of parameter values.</p>
 <p>This will generate a small table of parameters statistics,
 containing:</p>
 <ul class="simple">
@@ -447,14 +626,19 @@ containing:</p>
 <li>Standard Error of the Estimate (if known)</li>
 <li>t Statistic (if known)</li>
 <li>Null Value</li>
+<li>Binding Constraints (if applicable)</li>
 </ul>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>output</strong> (<em>{'df'</em><em>,</em><em>'xml'}</em>) – The format of the output.  The default, ‘df’, creates a
+pandas DataFrame.  Alternatively, use ‘xml’ to create
+a table as a xmle.Elem (this format is no longer preferred).</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">xmle.Elem</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.0.3)">pandas.DataFrame</a> or xmle.Elem</td>
 </tr>
 </tbody>
 </table>
@@ -527,7 +711,7 @@ it, cache its value, and include it in the output.</td>
 <h2>Visualization Tools<a class="headerlink" href="#visualization-tools" title="Permalink to this headline">¶</a></h2>
 <dl class="method">
 <dt id="larch.Model.distribution_on_idca_variable">
-<code class="descclassname">Model.</code><code class="descname">distribution_on_idca_variable</code><span class="sig-paren">(</span><em>x</em>, <em>xlabel=None</em>, <em>ylabel='Relative Frequency'</em>, <em>style='hist'</em>, <em>bins=None</em>, <em>pct_bins=20</em>, <em>range=None</em>, <em>prob_label='Modeled'</em>, <em>obs_label='Observed'</em>, <em>subselector=None</em>, <em>probability=None</em>, <em>bw_method=None</em>, <em>discrete=None</em>, <em>ax=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#larch.Model.distribution_on_idca_variable" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">Model.</code><code class="descname">distribution_on_idca_variable</code><span class="sig-paren">(</span><em>x</em>, <em>xlabel=None</em>, <em>ylabel='Relative Frequency'</em>, <em>style='hist'</em>, <em>bins=None</em>, <em>pct_bins=20</em>, <em>range=None</em>, <em>xlim=None</em>, <em>prob_label='Modeled'</em>, <em>obs_label='Observed'</em>, <em>subselector=None</em>, <em>probability=None</em>, <em>bw_method=None</em>, <em>discrete=None</em>, <em>ax=None</em>, <em>format='ax'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#larch.Model.distribution_on_idca_variable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate a figure of observed and modeled choices over a range of variable values.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -545,7 +729,7 @@ x-axis label.</li>
 <li><strong>ylabel</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>default &quot;Relative Frequency&quot;</em>) – A label to use for the y-axis of the resulting figure.</li>
 <li><strong>style</strong> (<em>{'hist'</em><em>, </em><em>'kde'}</em>) – The style of figure to produce, either a histogram or a kernel density plot.</li>
 <li><strong>bins</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>default 25</em>) – The number of bins to use, only applicable to histogram style.</li>
-<li><strong>range</strong> (<em>2-tuple</em><em>, </em><em>optional</em>) – A range to truncate the figure.</li>
+<li><strong>range</strong> (<em>2-tuple</em><em>, </em><em>optional</em>) – A range to truncate the figure. (alias <cite>xlim</cite>)</li>
 <li><strong>prob_label</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>default &quot;Modeled&quot;</em>) – A label to put in the legend for the modeled probabilities</li>
 <li><strong>obs_label</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>default &quot;Observed&quot;</em>) – A label to put in the legend for the observed choices</li>
 <li><strong>subselector</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em> or </em><em>array-like</em><em>, </em><em>optional</em>) – A filter to apply to cases. If given as a string, this is loaded from the
@@ -554,7 +738,10 @@ model’s <cite>dataservice</cite> as an <cite>idco</cite> variable.</li>
 If not given, the probability array is calculated at the current parameter
 values.</li>
 <li><strong>ax</strong> (<em>matplotlib.Axes</em><em>, </em><em>optional</em>) – If given, the figure will be drawn on these axes and they will be returned,
-otherwise new blank axes are used to draw the figure and a rendering is returned.</li>
+otherwise new blank axes are used to draw the figure.</li>
+<li><strong>format</strong> (<em>{'ax'</em><em>, </em><em>'figure'</em><em>, </em><em>'svg'}</em><em>, </em><em>default 'figure'</em>) – How to return the result if it is a figure. The default is to return
+the raw matplotlib Axes instance.  Change this to <cite>svg</cite> to get a SVG
+rendering as an xmle.Elem.</li>
 </ul>
 </td>
 </tr>
@@ -576,7 +763,7 @@ rendered svg figure.</p>
 
 <dl class="method">
 <dt id="larch.Model.distribution_on_idco_variable">
-<code class="descclassname">Model.</code><code class="descname">distribution_on_idco_variable</code><span class="sig-paren">(</span><em>x</em>, <em>xlabel</em>, <em>bins=None</em>, <em>pct_bins=20</em>, <em>figsize=(12</em>, <em>4)</em>, <em>style='stacked'</em>, <em>discrete=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#larch.Model.distribution_on_idco_variable" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">Model.</code><code class="descname">distribution_on_idco_variable</code><span class="sig-paren">(</span><em>x</em>, <em>xlabel=None</em>, <em>bins=None</em>, <em>pct_bins=20</em>, <em>figsize=(12</em>, <em>4)</em>, <em>style='stacked'</em>, <em>discrete=None</em>, <em>xlim=None</em>, <em>include_nests=False</em>, <em>exclude_alts=None</em>, <em>filter=None</em>, <em>format='figure'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#larch.Model.distribution_on_idco_variable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate a figure of variables over a range of variable values.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -593,14 +780,27 @@ the value of <cite>x</cite> is used if it is a string.  Set to <cite>False</cite
 x-axis label.</li>
 <li><strong>bins</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – The number of equal-sized bins to use.</li>
 <li><strong>pct_bins</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em> or </em><em>array-like</em><em>, </em><em>default 20</em>) – The number of equal-mass bins to use.</li>
-<li><strong>style</strong> (<em>{'stacked'</em><em>, </em><em>'dataframe'</em><em>, </em><em>'many'}</em>) – </li>
+<li><strong>style</strong> (<em>{'stacked'</em><em>, </em><em>'dataframe'</em><em>, </em><em>'many'}</em>) – The type of output to generate.</li>
+<li><strong>discrete</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>default False</em>) – Whether to treat the data values explicitly as discrete (vs continuous)
+data.  This will change the styling and automatic bin generation.  If
+there are very few unique values, the data will be assumed to be
+discrete anyhow.</li>
+<li><strong>xlim</strong> (<em>2-tuple</em><em>, </em><em>optional</em>) – Explicitly set the range of values shown on the x axis of generated
+figures.  This can truncate long tails.  The actual histogram bins
+are not changed.</li>
+<li><strong>include_nests</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>default False</em>) – Whether to include nests in the figure.</li>
+<li><strong>exclude_alts</strong> (<em>Collection</em><em>, </em><em>optional</em>) – Alternatives to exclude from the figure.</li>
+<li><strong>filter</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – A filter that will be used to select only a subset of cases.</li>
+<li><strong>format</strong> (<em>{'figure'</em><em>,</em><em>'svg'}</em><em>, </em><em>default 'figure'</em>) – How to return the result if it is a figure. The default is to return
+the raw matplotlib Figure instance, ot set to <cite>svg</cite> to get a SVG
+rendering as an xmle.Elem.</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"></p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Elem</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Figure, DataFrame, or Elem</p>
 </td>
 </tr>
 </tbody>
@@ -632,7 +832,7 @@ x-axis label.</li>
     <p>
         &copy; Copyright 2010-2019, Jeffrey Newman
       <span class="lastupdated">
-        Last updated on Nov 25, 2019.
+        Last updated on May 04, 2020.
       </span>
 
     </p>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>DataService &mdash; Larch 5.3.0 documentation</title>
+  <title>DataService &mdash; Larch 5.4.0 documentation</title>
   
 
   
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                5.3.0
+                5.4.0
               </div>
             
           
@@ -194,6 +194,18 @@
 </style>
 <div class="section" id="dataservice">
 <h1>DataService<a class="headerlink" href="#dataservice" title="Permalink to this headline">¶</a></h1>
+<p>Larch has two closely related interfaces to manage data: <a class="reference internal" href="data-frames.html#larch.DataFrames" title="larch.DataFrames"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrames</span></code></a> and
+<a class="reference internal" href="#larch.DataService" title="larch.DataService"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataService</span></code></a>.  The former is a set of related data tables, while the
+latter is an interface that generates instances of the former.  You can think
+of a <a class="reference internal" href="#larch.DataService" title="larch.DataService"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataService</span></code></a> as a place to get data, and <a class="reference internal" href="data-frames.html#larch.DataFrames" title="larch.DataFrames"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrames</span></code></a> as the
+data you get.</p>
+<p>In fact, <a class="reference internal" href="data-frames.html#larch.DataFrames" title="larch.DataFrames"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrames</span></code></a> is itself a subclass of <a class="reference internal" href="#larch.DataService" title="larch.DataService"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataService</span></code></a>,
+allowing you to pull subsets of the data you have stored, so you can use
+<a class="reference internal" href="data-frames.html#larch.DataFrames" title="larch.DataFrames"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrames</span></code></a> in both places.</p>
+<p>A Larch Model object will generally have a <a class="reference internal" href="#larch.DataService" title="larch.DataService"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataService</span></code></a> attached
+by the user, and then it will use that <a class="reference internal" href="#larch.DataService" title="larch.DataService"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataService</span></code></a> to automatically
+generate, format, and pre-process the particular <a class="reference internal" href="data-frames.html#larch.DataFrames" title="larch.DataFrames"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrames</span></code></a> it needs
+for analysis.</p>
 <dl class="class">
 <dt id="larch.DataService">
 <em class="property">class </em><code class="descclassname">larch.</code><code class="descname">DataService</code><a class="headerlink" href="#larch.DataService" title="Permalink to this definition">¶</a></dt>
@@ -258,7 +270,7 @@ as a keyword argument.</li>
     <p>
         &copy; Copyright 2010-2019, Jeffrey Newman
       <span class="lastupdated">
-        Last updated on Nov 25, 2019.
+        Last updated on May 04, 2020.
       </span>
 
     </p>

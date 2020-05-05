@@ -41,14 +41,14 @@ Model 18's nesting structure groups all motorized alternatives. (`pp. 176 <http:
 	:options: +ELLIPSIS, +NORMALIZE_WHITESPACE, +REPORT_NDIFF
 
 	>>> m.load_data()
-	>>> m.maximize_loglike()
+	>>> m.maximize_loglike(method='bhhh')
 	┣ ...Optimization terminated successfully...
 	>>> m.calculate_parameter_covariance()
 	>>> m.loglike()
 	-3442.315...
 	
-	>>> print(m.pfo()[['value','std err','t stat','robust std err','robust t stat']])
-	                                value    std err  t stat  robust std err  robust t stat
+	>>> print(m.pfo()[['value','std_err','t_stat','robust_std_err','robust_t_stat']])
+	                                value    std_err  t_stat  robust_std_err  robust_t_stat
 	Category   Parameter
 	CostbyInc  costbyincome        -0.039  1.048e-02  -3.702       1.263e-02         -3.071
 	TravelTime motorized_time      -0.015  3.919e-03  -3.733       4.172e-03         -3.506

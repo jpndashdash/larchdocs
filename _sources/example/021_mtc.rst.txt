@@ -38,11 +38,11 @@ Model 21's nesting structure groups the non-motorized alternatives. (`pp. 176 <h
 	:options: +ELLIPSIS, +NORMALIZE_WHITESPACE, +REPORT_NDIFF
 
 	>>> m.load_data()
-	>>> m.maximize_loglike()
+	>>> m.maximize_loglike(method='bhhh')
 	┣ ...Optimization terminated successfully...
 	>>> m.loglike()
 	-3443.554...
-	
+
 	>>> print(m.pfo()[['value']])
 	                                 value
 	Category   Parameter
