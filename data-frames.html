@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>DataFrames &mdash; Larch 5.4.0 documentation</title>
+  <title>DataFrames &mdash; Larch 5.4.1 documentation</title>
   
 
   
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                5.4.0
+                5.4.1
               </div>
             
           
@@ -399,7 +399,7 @@ div.rendered_html tbody tr:hover {
 </style>
 <div class="section" id="DataFrames">
 <h1>DataFrames<a class="headerlink" href="#DataFrames" title="Permalink to this headline">¶</a></h1>
-<p>A <a class="reference internal" href="#larch.DataFrames" title="larch.DataFrames"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrames</span></code></a> is essentially a collection of related <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>s,
+<p>A <a class="reference internal" href="#larch.DataFrames" title="larch.DataFrames"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrames</span></code></a> is essentially a collection of related <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.0.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>s,
 which represent <a class="reference internal" href="data-fundamentals.html#idco"><span class="std std-ref">idco Format</span></a> and <a class="reference internal" href="data-fundamentals.html#idca"><span class="std std-ref">idca Format</span></a> data features.</p>
 <dl class="class">
 <dt id="larch.DataFrames">
@@ -410,12 +410,12 @@ which represent <a class="reference internal" href="data-fundamentals.html#idco"
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>co</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.0.3)"><em>pandas.DataFrame</em></a>) – A dataframe containing <a class="reference internal" href="data-fundamentals.html#idco"><span class="std std-ref">idco</span></a> format data, with one row per case.
+<li><strong>co</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.0.4)"><em>pandas.DataFrame</em></a>) – A dataframe containing <a class="reference internal" href="data-fundamentals.html#idco"><span class="std std-ref">idco</span></a> format data, with one row per case.
 The index contains the caseid’s.</li>
-<li><strong>ca</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.0.3)"><em>pandas.DataFrame</em></a>) – A dataframe containing <a class="reference internal" href="data-fundamentals.html#idca"><span class="std std-ref">idca</span></a> format data, with one row per alternative.
+<li><strong>ca</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.0.4)"><em>pandas.DataFrame</em></a>) – A dataframe containing <a class="reference internal" href="data-fundamentals.html#idca"><span class="std std-ref">idca</span></a> format data, with one row per alternative.
 The index should be a two-level multi-index, with the first level
 containing the caseid’s and the second level containing the altid’s.</li>
-<li><strong>av</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.0.3)"><em>pandas.DataFrame</em></a><em> or </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.0.3)"><em>pandas.Series</em></a><em> or </em><em>True</em><em>, </em><em>optional</em>) – Alternative availability data.  This can be given as a pandas.DataFrame
+<li><strong>av</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.0.4)"><em>pandas.DataFrame</em></a><em> or </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.0.4)"><em>pandas.Series</em></a><em> or </em><em>True</em><em>, </em><em>optional</em>) – Alternative availability data.  This can be given as a pandas.DataFrame
 in <a class="reference internal" href="data-fundamentals.html#idco"><span class="std std-ref">idco</span></a> format, with one row per case and one column per alternative,
 where the index contains the caseid’s, and the columns contain the altid’s.
 Or, it can be given as a pandas.Series in <a class="reference internal" href="data-fundamentals.html#idca"><span class="std std-ref">idca</span></a> format, with one row
@@ -424,7 +424,7 @@ first level containing the caseid’s and the second level containing the
 altid’s. Or, set to <cite>True</cite> to make all alternatives available for all
 cases.  If not given, then <cite>data_av</cite> will not be defined unless it can
 be inferred from missing rows in <cite>ca</cite>.</li>
-<li><strong>ch</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.0.3)"><em>pandas.DataFrame</em></a><em> or </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.0.3)"><em>pandas.Series</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – Choice data. This can be given as a pandas.DataFrame
+<li><strong>ch</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.0.4)"><em>pandas.DataFrame</em></a><em> or </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.0.4)"><em>pandas.Series</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – Choice data. This can be given as a pandas.DataFrame
 in <a class="reference internal" href="data-fundamentals.html#idco"><span class="std std-ref">idco</span></a> format, with one row per case and one column per alternative,
 where the index contains the caseid’s, and the columns contain the altid’s.
 Or, it can be given as a pandas.Series in <a class="reference internal" href="data-fundamentals.html#idca"><span class="std std-ref">idca</span></a> format, with one row
@@ -434,7 +434,7 @@ altid’s. Or, if given as a str, then that named column is found in the <cite>c
 dataframe if it appears there and used as the choice.  Otherwise, if
 the named column is found in the <cite>co</cite> dataframe, then the codes in that column
 are used to identify the choices.  If not given, <cite>data_ch</cite> is not set.</li>
-<li><strong>wt</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.0.3)"><em>pandas.DataFrame</em></a><em> or </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.0.3)"><em>pandas.Series</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – Case weights. This can only be given in <a class="reference internal" href="data-fundamentals.html#idco"><span class="std std-ref">idco</span></a> format, either as a
+<li><strong>wt</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.0.4)"><em>pandas.DataFrame</em></a><em> or </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.0.4)"><em>pandas.Series</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – Case weights. This can only be given in <a class="reference internal" href="data-fundamentals.html#idco"><span class="std std-ref">idco</span></a> format, either as a
 pandas.DataFrame with a single column, or as a pandas.Series. Or, if given
 as a str, then that named column is found in the <cite>co</cite> or <cite>ca</cite>
 dataframe if it appears there and used as the weight. If not given,
@@ -451,7 +451,9 @@ from the <cite>av</cite> argument if possible.</li>
 the <cite>ch</cite> argument if possible.</li>
 <li><strong>wt_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – A name to use for the weight variable.  If not given, it is inferred from
 the <cite>wt</cite> argument if possible.</li>
-<li><strong>autoscale_weights</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>default False</em>) – Call autoscale_weights on the DataFrames after initialization.</li>
+<li><strong>autoscale_weights</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>default False</em>) – Call <cite>autoscale_weights</cite> on the DataFrames after initialization. Note that
+this will not only scale an explicitly given <cite>wt</cite>, but it will also
+extract implied weights from the <cite>ch</cite> as well.</li>
 </ul>
 </td>
 </tr>
@@ -493,7 +495,7 @@ that appear in <cite>alternative_codes</cite>.</td>
 <dt id="larch.DataFrames.data_co">
 <code class="descname">data_co</code><a class="headerlink" href="#larch.DataFrames.data_co" title="Permalink to this definition">¶</a></dt>
 <dd><p>A pandas.DataFrame in <a class="reference internal" href="data-fundamentals.html#idco"><span class="std std-ref">idco</span></a> format.</p>
-<p>This DataFrame should have a simple <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Index.html#pandas.Index" title="(in pandas v1.0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Index</span></code></a> as the index, where
+<p>This DataFrame should have a simple <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Index.html#pandas.Index" title="(in pandas v1.0.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Index</span></code></a> as the index, where
 the index values are is the caseids.</p>
 </dd></dl>
 
@@ -1355,7 +1357,7 @@ larch.DataFrames:  (not computation-ready)
     <p>
         &copy; Copyright 2010-2019, Jeffrey Newman
       <span class="lastupdated">
-        Last updated on May 04, 2020.
+        Last updated on Jun 05, 2020.
       </span>
 
     </p>

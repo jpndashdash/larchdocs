@@ -374,6 +374,13 @@
    "metadata": {},
    "outputs": [
     {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "rescaled array of weights by a factor of 2239.980952380952\n"
+     ]
+    },
+    {
      "name": "stdout",
      "output_type": "stream",
      "text": [
@@ -394,12 +401,13 @@
       "    - origin      (105 non-null int64)\n",
       "    - destination (105 non-null int64)\n",
       "  data_av: <populated>\n",
-      "  data_ch: choice\n"
+      "  data_ch: choice\n",
+      "  data_wt: computed_weight (/ 2239.980952380952)\n"
      ]
     }
    ],
    "source": [
-    "d = larch.DataFrames(itin, ch='choice', crack=True)\n",
+    "d = larch.DataFrames(itin, ch='choice', crack=True, autoscale_weights=True)\n",
     "d.info(1)"
    ]
   },
