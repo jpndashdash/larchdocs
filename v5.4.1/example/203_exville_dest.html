@@ -1,0 +1,1672 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>203: Exampville Destination Choice &mdash; Larch 5.4.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/larch_favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/larch_rtfd.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Itinerary Choice Examples" href="itinerary.html" />
+    <link rel="prev" title="202: Exampville Mode Choice Logsums" href="202_exville_mc_logsums.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Larch
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                5.4.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting-started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data.html">Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../math.html">Mathematics of Logit Choice Modeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../machine-learning/index.html">Machine Learning</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="examples.html">Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="mtc.html">MTC Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="swissmetro.html">Swissmetro Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="exampville.html">Exampville Simulator</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="200_exampville.html">200: Exampville Simulated Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="201_exville_mode_choice.html">201: Exampville Mode Choice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="202_exville_mc_logsums.html">202: Exampville Mode Choice Logsums</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">203: Exampville Destination Choice</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Preprocessing">Preprocessing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Model-Definition">Model Definition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Model-Estimation">Model Estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Model-Visualization">Model Visualization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Save-and-Report-Model">Save and Report Model</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="itinerary.html">Itinerary Choice Examples</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Larch</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="examples.html">Examples</a> &raquo;</li>
+        
+          <li><a href="exampville.html">Exampville Simulator</a> &raquo;</li>
+        
+      <li>203: Exampville Destination Choice</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/example/203_exville_dest.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 5ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="203:-Exampville-Destination-Choice">
+<h1>203: Exampville Destination Choice<a class="headerlink" href="#203:-Exampville-Destination-Choice" title="Permalink to this headline">¶</a></h1>
+<p>Welcome to Exampville, the best simulated town in this here part of the internet!</p>
+<p>Exampville is a demonstration provided with Larch that walks through some of the data and tools that a transportation planner might use when building a travel model.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">larch</span><span class="o">,</span> <span class="nn">numpy</span><span class="o">,</span> <span class="nn">pandas</span><span class="o">,</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">larch</span> <span class="kn">import</span> <span class="n">P</span><span class="p">,</span> <span class="n">X</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">larch</span><span class="o">.</span><span class="n">__version__</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&#39;5.4.0&#39;
+</pre></div>
+</div>
+</div>
+<p>In this example notebook, we will walk through the estimation of a tour destination choice model. First, let’s load the data files from our example.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">hh</span><span class="p">,</span> <span class="n">pp</span><span class="p">,</span> <span class="n">tour</span><span class="p">,</span> <span class="n">skims</span><span class="p">,</span> <span class="n">emp</span> <span class="o">=</span> <span class="n">larch</span><span class="o">.</span><span class="n">example</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;hh&#39;</span><span class="p">,</span> <span class="s1">&#39;pp&#39;</span><span class="p">,</span> <span class="s1">&#39;tour&#39;</span><span class="p">,</span> <span class="s1">&#39;skims&#39;</span><span class="p">,</span> <span class="s1">&#39;emp&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">For this destination choice model, we’ll want to use the mode choice logsums we calculated previously from the mode choice estimation, but we’ll use these values as fixed input data instead of a modeled value.</div>
+<div class="line">We can load these logsums from the file in which they were saved. For this example, we can indentify that file using the <code class="docutils literal notranslate"><span class="pre">larch.example</span></code> function, which will automatically rebuild the file if it doesn’t exists. In typical applications, a user would generally just give the filename as a string and ensure manually that the file exists before loading it.</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">logsums_file</span> <span class="o">=</span> <span class="n">larch</span><span class="o">.</span><span class="n">example</span><span class="p">(</span><span class="mi">202</span><span class="p">,</span> <span class="n">output_file</span><span class="o">=</span><span class="s1">&#39;/tmp/logsums.pkl.gz&#39;</span><span class="p">)</span>
+<span class="n">logsums</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">read_pickle</span><span class="p">(</span><span class="n">logsums_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="Preprocessing">
+<h2>Preprocessing<a class="headerlink" href="#Preprocessing" title="Permalink to this headline">¶</a></h2>
+<p>We’ll replicate the pre-processing used in the mode choice estimation, to merge the household and person characteristics into the tours data, add the index values for the home TAZ’s, filter to include only work tours, and merge with the level of service skims. (If this pre-processing was computationally expensive, it would probably have been better to save the results to disk and reload them as needed, but for this model these commands will run almost instantaneously.)</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">raw</span> <span class="o">=</span> <span class="n">tour</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">hh</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;HHID&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">pp</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;HHID&#39;</span><span class="p">,</span> <span class="s1">&#39;PERSONID&#39;</span><span class="p">))</span>
+<span class="n">raw</span><span class="p">[</span><span class="s2">&quot;HOMETAZi&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">raw</span><span class="p">[</span><span class="s2">&quot;HOMETAZ&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="n">raw</span><span class="p">[</span><span class="s2">&quot;DTAZi&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">raw</span><span class="p">[</span><span class="s2">&quot;DTAZ&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="n">raw</span> <span class="o">=</span> <span class="n">raw</span><span class="p">[</span><span class="n">raw</span><span class="o">.</span><span class="n">TOURPURP</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">raw</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;CASE_ID&#39;</span>
+</pre></div>
+</div>
+</div>
+<p>The alternatives in the destinations model are much more regular than in the mode choice model, as every observation will have a similar set of alternatives and the utility function for each of those alternatives will share a common functional form. We’ll leverage this by using <code class="docutils literal notranslate"><span class="pre">idca</span></code> format to make data management simpler.</p>
+<p>First, we’ll assemble some individual variables that we’ll want to use. We can build an array to represent the distance to each destination based on the <code class="docutils literal notranslate"><span class="pre">&quot;AUTO_DIST&quot;</span></code> matrix in the <code class="docutils literal notranslate"><span class="pre">skims</span></code> OMX file.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distance</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">skims</span><span class="o">.</span><span class="n">AUTO_DIST</span><span class="p">[:][</span><span class="n">raw</span><span class="p">[</span><span class="s2">&quot;HOMETAZi&quot;</span><span class="p">],</span> <span class="p">:],</span>
+    <span class="n">index</span><span class="o">=</span><span class="n">raw</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+    <span class="n">columns</span><span class="o">=</span><span class="n">skims</span><span class="o">.</span><span class="n">TAZ_ID</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>This command pulls the relevant row, identified by the <code class="docutils literal notranslate"><span class="pre">&quot;HOMETAZi&quot;</span></code> column in the <code class="docutils literal notranslate"><span class="pre">raw</span></code> data, into each row of a new DataFrame, which has a row for each case and a column for each alterative.</p>
+<p>Note that the <code class="docutils literal notranslate"><span class="pre">[:]</span></code> inserted into the <code class="docutils literal notranslate"><span class="pre">data</span></code> argument is used to instruct the <code class="docutils literal notranslate"><span class="pre">pytables</span></code> module to load the entire matrix into memory, and then <code class="docutils literal notranslate"><span class="pre">numpy</span></code> indexing is used to actually select out the rows needed. This is a technical limitation of the <code class="docutils literal notranslate"><span class="pre">pytables</span></code> module and could theoretically be a very computationally expensive step if the skims matrix is huge relative to the number of rows in the <code class="docutils literal notranslate"><span class="pre">raw</span></code> DataFrame. However, in practice a single matrix from the skims file is generally not
+that large compared to the number of observations, and this step can be processed quite efficiently.</p>
+<p>The logsums we previously loaded is in the same format as the <code class="docutils literal notranslate"><span class="pre">distance</span></code>, with a row for each case and a column for each alterative. To use the <code class="docutils literal notranslate"><span class="pre">idca</span></code> format, we’ll reshape these data, so each is a single column (i.e., a <code class="docutils literal notranslate"><span class="pre">pandas.Series</span></code>), with a two-level <code class="docutils literal notranslate"><span class="pre">MultiIndex</span></code> giving case and alternative respectively, and then assemble these columns into a single DataFrame. We can do the reshaping using the <code class="docutils literal notranslate"><span class="pre">stack</span></code> method, and we will make sure the resulting Series has an appropriate name using
+<code class="docutils literal notranslate"><span class="pre">rename</span></code>, before we combine them together using <code class="docutils literal notranslate"><span class="pre">pandas.concat</span></code>:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">ca</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span>
+    <span class="n">distance</span><span class="o">.</span><span class="n">stack</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">&quot;distance&quot;</span><span class="p">),</span>
+    <span class="n">logsums</span><span class="o">.</span><span class="n">stack</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">&quot;logsum&quot;</span><span class="p">),</span>
+<span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">ca</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+MultiIndex: 302560 entries, (0, 1) to (20736, 40)
+Data columns (total 2 columns):
+ #   Column    Non-Null Count   Dtype
+---  ------    --------------   -----
+ 0   distance  302560 non-null  float64
+ 1   logsum    302560 non-null  float64
+dtypes: float64(2)
+memory usage: 5.5 MB
+</pre></div></div>
+</div>
+<p>For our destination choice model, we’ll also want to use employment data. This data, as included in our example, has unique values only by alternative and not by caseid, so there are only 40 unique rows. (This kind of structure is common for destination choice models.)</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">emp</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+Int64Index: 40 entries, 1 to 40
+Data columns (total 3 columns):
+ #   Column         Non-Null Count  Dtype
+---  ------         --------------  -----
+ 0   NONRETAIL_EMP  40 non-null     int64
+ 1   RETAIL_EMP     40 non-null     int64
+ 2   TOTAL_EMP      40 non-null     int64
+dtypes: int64(3)
+memory usage: 1.2 KB
+</pre></div></div>
+</div>
+<p>To make this work with the computational arrays required for Larch, we’ll need to join this to the other <code class="docutils literal notranslate"><span class="pre">idca</span></code> data. Doing so is simple, because the index of the <code class="docutils literal notranslate"><span class="pre">emp</span></code> DataFrame is the same as the alternative id level of the <code class="docutils literal notranslate"><span class="pre">ca</span></code> MultiIndex. You can see the names of the levels on the MultiIndex like this:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">ca</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">names</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>FrozenList([&#39;CASE_ID&#39;, &#39;TAZ_ID&#39;])
+</pre></div>
+</div>
+</div>
+<p>Knowing the name on the alternatives portion of the <code class="docutils literal notranslate"><span class="pre">idca</span></code> data lets us join the employment data like this:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">ca</span> <span class="o">=</span> <span class="n">ca</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">emp</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;TAZ_ID&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Then we bundle the raw data along with this newly organized <code class="docutils literal notranslate"><span class="pre">idca</span></code> data, into the <code class="docutils literal notranslate"><span class="pre">larch.DataFrames</span></code> structure, which is used for estimation. This structure also identifies a vector of the alterative codes and optionally, names and choice identifiers. This structure can be attached to a model as its <code class="docutils literal notranslate"><span class="pre">dataservice</span></code>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">dfs</span> <span class="o">=</span> <span class="n">larch</span><span class="o">.</span><span class="n">DataFrames</span><span class="p">(</span>
+    <span class="n">co</span><span class="o">=</span><span class="n">raw</span><span class="p">,</span>
+    <span class="n">ca</span><span class="o">=</span><span class="n">ca</span><span class="p">,</span>
+    <span class="n">alt_codes</span><span class="o">=</span><span class="n">skims</span><span class="o">.</span><span class="n">TAZ_ID</span><span class="p">,</span>
+    <span class="n">alt_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;TAZ{i}&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">skims</span><span class="o">.</span><span class="n">TAZ_ID</span><span class="p">],</span>
+    <span class="n">ch_name</span><span class="o">=</span><span class="s1">&#39;DTAZ&#39;</span><span class="p">,</span>
+    <span class="n">av</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">dfs</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+larch.DataFrames:  (not computation-ready)
+  n_cases: 7564
+  n_alts: 40
+  data_ca:
+    - distance      (302560 non-null float64)
+    - logsum        (302560 non-null float64)
+    - NONRETAIL_EMP (302560 non-null int64)
+    - RETAIL_EMP    (302560 non-null int64)
+    - TOTAL_EMP     (302560 non-null int64)
+  data_co:
+    - TOURID        (7564 non-null int64)
+    - HHID          (7564 non-null int64)
+    - PERSONID      (7564 non-null int64)
+    - DTAZ          (7564 non-null int64)
+    - TOURMODE      (7564 non-null int64)
+    - TOURPURP      (7564 non-null int64)
+    - N_STOPS       (7564 non-null int64)
+    - N_TRIPS_x     (7564 non-null int64)
+    - N_TRIPS_HBW_x (7564 non-null int64)
+    - N_TRIPS_HBO_x (7564 non-null int64)
+    - N_TRIPS_NHB_x (7564 non-null int64)
+    - X             (7564 non-null float64)
+    - Y             (7564 non-null float64)
+    - INCOME        (7564 non-null float64)
+    - N_VEHICLES    (7564 non-null int64)
+    - HHSIZE        (7564 non-null int64)
+    - geometry      (7564 non-null object)
+    - HOMETAZ       (7564 non-null int64)
+    - N_TRIPS_y     (7564 non-null int64)
+    - N_TRIPS_HBW_y (7564 non-null int64)
+    - N_TRIPS_HBO_y (7564 non-null int64)
+    - N_TRIPS_NHB_y (7564 non-null int64)
+    - N_WORKERS     (7564 non-null int64)
+    - HHIDX         (7564 non-null int64)
+    - AGE           (7564 non-null int64)
+    - WORKS         (7564 non-null int64)
+    - N_WORK_TOURS  (7564 non-null int64)
+    - N_OTHER_TOURS (7564 non-null int64)
+    - N_TOURS       (7564 non-null int64)
+    - N_TRIPS       (7564 non-null int64)
+    - N_TRIPS_HBW   (7564 non-null int64)
+    - N_TRIPS_HBO   (7564 non-null int64)
+    - N_TRIPS_NHB   (7564 non-null int64)
+    - HOMETAZi      (7564 non-null int64)
+    - DTAZi         (7564 non-null int64)
+  data_av: &lt;populated&gt;
+  data_ch: DTAZ
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Model-Definition">
+<h2>Model Definition<a class="headerlink" href="#Model-Definition" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m</span> <span class="o">=</span> <span class="n">larch</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">dataservice</span><span class="o">=</span><span class="n">dfs</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Exampville Work Tour Destination Choice v1&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m</span><span class="o">.</span><span class="n">quantity_ca</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="o">+</span> <span class="n">P</span><span class="o">.</span><span class="n">EmpRetail_HighInc</span> <span class="o">*</span> <span class="n">X</span><span class="p">(</span><span class="s1">&#39;RETAIL_EMP * (INCOME&gt;50000)&#39;</span><span class="p">)</span>
+        <span class="o">+</span> <span class="n">P</span><span class="o">.</span><span class="n">EmpNonRetail_HighInc</span> <span class="o">*</span> <span class="n">X</span><span class="p">(</span><span class="s1">&#39;NONRETAIL_EMP&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="n">X</span><span class="p">(</span><span class="s2">&quot;INCOME&gt;50000&quot;</span><span class="p">)</span>
+        <span class="o">+</span> <span class="n">P</span><span class="o">.</span><span class="n">EmpRetail_LowInc</span> <span class="o">*</span> <span class="n">X</span><span class="p">(</span><span class="s1">&#39;RETAIL_EMP&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="n">X</span><span class="p">(</span><span class="s2">&quot;INCOME&lt;=50000&quot;</span><span class="p">)</span>
+        <span class="o">+</span> <span class="n">P</span><span class="o">.</span><span class="n">EmpNonRetail_LowInc</span> <span class="o">*</span> <span class="n">X</span><span class="p">(</span><span class="s1">&#39;NONRETAIL_EMP&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="n">X</span><span class="p">(</span><span class="s2">&quot;INCOME&lt;=50000&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">m</span><span class="o">.</span><span class="n">quantity_scale</span> <span class="o">=</span> <span class="n">P</span><span class="o">.</span><span class="n">Theta</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m</span><span class="o">.</span><span class="n">utility_ca</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="o">+</span> <span class="n">P</span><span class="o">.</span><span class="n">logsum</span> <span class="o">*</span> <span class="n">X</span><span class="o">.</span><span class="n">logsum</span>
+    <span class="o">+</span> <span class="n">P</span><span class="o">.</span><span class="n">distance</span> <span class="o">*</span> <span class="n">X</span><span class="o">.</span><span class="n">distance</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m</span><span class="o">.</span><span class="n">lock_values</span><span class="p">(</span>
+    <span class="n">EmpRetail_HighInc</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">EmpRetail_LowInc</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Model-Estimation">
+<h2>Model Estimation<a class="headerlink" href="#Model-Estimation" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+req_data does not request {choice_ca,choice_co,choice_co_code} but choice is set and being provided
+req_data does not request avail_ca or avail_co but it is set and being provided
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m</span><span class="o">.</span><span class="n">loglike</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>-28238.3368809997
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m</span><span class="o">.</span><span class="n">maximize_loglike</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<h3>Iteration 013 [Converged] </h3></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<p>LL = -25157.726761693477</p></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>value</th>
+      <th>initvalue</th>
+      <th>nullvalue</th>
+      <th>minimum</th>
+      <th>maximum</th>
+      <th>holdfast</th>
+      <th>note</th>
+      <th>best</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>EmpNonRetail_HighInc</th>
+      <td>1.363793</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-inf</td>
+      <td>inf</td>
+      <td>0</td>
+      <td></td>
+      <td>1.363793</td>
+    </tr>
+    <tr>
+      <th>EmpNonRetail_LowInc</th>
+      <td>-0.881379</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-inf</td>
+      <td>inf</td>
+      <td>0</td>
+      <td></td>
+      <td>-0.881379</td>
+    </tr>
+    <tr>
+      <th>EmpRetail_HighInc</th>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000</td>
+      <td>0.0</td>
+      <td>1</td>
+      <td></td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>EmpRetail_LowInc</th>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000</td>
+      <td>0.0</td>
+      <td>1</td>
+      <td></td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>Theta</th>
+      <td>0.749374</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.001</td>
+      <td>1.0</td>
+      <td>0</td>
+      <td></td>
+      <td>0.749374</td>
+    </tr>
+    <tr>
+      <th>distance</th>
+      <td>-0.041820</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-inf</td>
+      <td>inf</td>
+      <td>0</td>
+      <td></td>
+      <td>-0.041820</td>
+    </tr>
+    <tr>
+      <th>logsum</th>
+      <td>1.020821</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-inf</td>
+      <td>inf</td>
+      <td>0</td>
+      <td></td>
+      <td>1.020821</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div><table style="margin-top:1px;"><tr><th>key</th><th style="text-align:left;">value</th></tr><tr><td>x</td><td style="text-align:left;"><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>EmpNonRetail_HighInc</th>
+      <td>1.363793</td>
+    </tr>
+    <tr>
+      <th>EmpNonRetail_LowInc</th>
+      <td>-0.881379</td>
+    </tr>
+    <tr>
+      <th>EmpRetail_HighInc</th>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>EmpRetail_LowInc</th>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>Theta</th>
+      <td>0.749374</td>
+    </tr>
+    <tr>
+      <th>distance</th>
+      <td>-0.041820</td>
+    </tr>
+    <tr>
+      <th>logsum</th>
+      <td>1.020821</td>
+    </tr>
+  </tbody>
+</table></td></tr><tr><td>loglike</td><td style="text-align:left;">-25157.726761693477</td></tr><tr><td>d_loglike</td><td style="text-align:left;"><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>EmpNonRetail_HighInc</th>
+      <td>0.003254</td>
+    </tr>
+    <tr>
+      <th>EmpNonRetail_LowInc</th>
+      <td>0.003049</td>
+    </tr>
+    <tr>
+      <th>EmpRetail_HighInc</th>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>EmpRetail_LowInc</th>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>Theta</th>
+      <td>0.006297</td>
+    </tr>
+    <tr>
+      <th>distance</th>
+      <td>-0.014778</td>
+    </tr>
+    <tr>
+      <th>logsum</th>
+      <td>-0.000878</td>
+    </tr>
+  </tbody>
+</table></td></tr><tr><td>nit</td><td style="text-align:left;">13</td></tr><tr><td>nfev</td><td style="text-align:left;">32</td></tr><tr><td>njev</td><td style="text-align:left;">13</td></tr><tr><td>status</td><td style="text-align:left;">0</td></tr><tr><td>message</td><td style="text-align:left;">'Optimization terminated successfully.'</td></tr><tr><td>success</td><td style="text-align:left;">True</td></tr><tr><td>elapsed_time</td><td style="text-align:left;">0:00:02.601596</td></tr><tr><td>method</td><td style="text-align:left;">'slsqp'</td></tr><tr><td>n_cases</td><td style="text-align:left;">7564</td></tr><tr><td>iteration_number</td><td style="text-align:left;">13</td></tr><tr><td>logloss</td><td style="text-align:left;">3.3259818563846477</td></tr></table></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m</span><span class="o">.</span><span class="n">calculate_parameter_covariance</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Model-Visualization">
+<h2>Model Visualization<a class="headerlink" href="#Model-Visualization" title="Permalink to this headline">¶</a></h2>
+<p>For destination choice and similar type models, it might be beneficial to review the observed and modeled choices, and the relative distribution of these choices across different factors. For example, we would probably want to see the distribution of travel distance. The <code class="docutils literal notranslate"><span class="pre">Model</span></code> object includes a built-in method to create this kind of visualization.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m</span><span class="o">.</span><span class="n">distribution_on_idca_variable</span><span class="p">(</span><span class="s1">&#39;distance&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7faf2802c490&gt;
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/example_203_exville_dest_35_1.png" src="../_images/example_203_exville_dest_35_1.png" />
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">distribution_on_idca_variable</span></code> has a variety of options, for example to control the number and range of the histogram bins:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m</span><span class="o">.</span><span class="n">distribution_on_idca_variable</span><span class="p">(</span><span class="s1">&#39;distance&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7fafd031f5d0&gt;
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/example_203_exville_dest_37_1.png" src="../_images/example_203_exville_dest_37_1.png" />
+</div>
+</div>
+<p>Alternatively, the histogram style can be swapped out for a smoothed kernel density function:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m</span><span class="o">.</span><span class="n">distribution_on_idca_variable</span><span class="p">(</span>
+    <span class="s1">&#39;distance&#39;</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="s1">&#39;kde&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7faf40019090&gt;
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/example_203_exville_dest_39_1.png" src="../_images/example_203_exville_dest_39_1.png" />
+</div>
+</div>
+<p>Subsets of the observations can be pulled out, to observe the distribution conditional on other <code class="docutils literal notranslate"><span class="pre">idco</span></code> factors, like income.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m</span><span class="o">.</span><span class="n">distribution_on_idca_variable</span><span class="p">(</span>
+    <span class="s1">&#39;distance&#39;</span><span class="p">,</span>
+    <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Distance (miles)&quot;</span><span class="p">,</span>
+    <span class="n">bins</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span>
+    <span class="n">subselector</span><span class="o">=</span><span class="s1">&#39;INCOME&lt;10000&#39;</span><span class="p">,</span>
+    <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">13</span><span class="p">),</span>
+    <span class="n">header</span><span class="o">=</span><span class="s1">&#39;Destination Distance, Very Low Income (&lt;$10k) Households&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7faf902f5890&gt;
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/example_203_exville_dest_41_1.png" src="../_images/example_203_exville_dest_41_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Save-and-Report-Model">
+<h2>Save and Report Model<a class="headerlink" href="#Save-and-Report-Model" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">report</span> <span class="o">=</span> <span class="n">larch</span><span class="o">.</span><span class="n">Reporter</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">report</span> <span class="o">&lt;&lt;</span> <span class="s1">&#39;# Parameter Summary&#39;</span> <span class="o">&lt;&lt;</span> <span class="n">m</span><span class="o">.</span><span class="n">parameter_summary</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<h1><a class="toc" name="rx1" reftxt="Parameter Summary" toclevel="1"></a>Parameter Summary</h1><div><style type="text/css">
+    #T_c3f4ea6e_8f18_11ea_a0cb_acde48001122 th {
+          vertical-align: top;
+          text-align: left;
+    }    #T_c3f4ea6e_8f18_11ea_a0cb_acde48001122 td {
+          vertical-align: top;
+          text-align: left;
+    }    #T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row0_col0 {
+            font-family: monospace;
+        }    #T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row0_col1 {
+            font-family: monospace;
+        }    #T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row0_col2 {
+            font-family: monospace;
+        }    #T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row0_col3 {
+            font-family: monospace;
+        }    #T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row0_col4 {
+            font-family: monospace;
+        }    #T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row1_col0 {
+            font-family: monospace;
+        }    #T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row1_col1 {
+            font-family: monospace;
+        }    #T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row1_col2 {
+            font-family: monospace;
+        }    #T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row1_col3 {
+            font-family: monospace;
+        }    #T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row1_col4 {
+            font-family: monospace;
+        }    #T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row2_col0 {
+            font-family: monospace;
+        }    #T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row2_col1 {
+            font-family: monospace;
+        }    #T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row2_col2 {
+            font-family: monospace;
+        }    #T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row2_col3 {
+            font-family: monospace;
+        }    #T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row2_col4 {
+            font-family: monospace;
+        }    #T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row3_col0 {
+            font-family: monospace;
+        }    #T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row3_col1 {
+            font-family: monospace;
+        }    #T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row3_col2 {
+            font-family: monospace;
+        }    #T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row3_col3 {
+            font-family: monospace;
+        }    #T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row3_col4 {
+            font-family: monospace;
+        }    #T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row4_col0 {
+            font-family: monospace;
+        }    #T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row4_col1 {
+            font-family: monospace;
+        }    #T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row4_col2 {
+            font-family: monospace;
+        }    #T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row4_col3 {
+            font-family: monospace;
+        }    #T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row4_col4 {
+            font-family: monospace;
+        }    #T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row5_col0 {
+            font-family: monospace;
+        }    #T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row5_col1 {
+            font-family: monospace;
+        }    #T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row5_col2 {
+            font-family: monospace;
+        }    #T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row5_col3 {
+            font-family: monospace;
+        }    #T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row5_col4 {
+            font-family: monospace;
+        }    #T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row6_col0 {
+            font-family: monospace;
+        }    #T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row6_col1 {
+            font-family: monospace;
+        }    #T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row6_col2 {
+            font-family: monospace;
+        }    #T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row6_col3 {
+            font-family: monospace;
+        }    #T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row6_col4 {
+            font-family: monospace;
+        }</style><table id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122"><thead>    <tr>        <th class="blank level0"></th>        <th class="col_heading level0 col0">Value</th>        <th class="col_heading level0 col1">Std Err</th>        <th class="col_heading level0 col2">t Stat</th>        <th class="col_heading level0 col3">Signif</th>        <th class="col_heading level0 col4">Null Value</th>        <th class="col_heading level0 col5">Constrained</th>    </tr></thead><tbody>
+                <tr>
+                        <th class="row_heading level0 row0" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122level0_row0">EmpNonRetail_HighInc</th>
+                        <td class="data row0 col0" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row0_col0"> 1.36</td>
+                        <td class="data row0 col1" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row0_col1"> 0.256</td>
+                        <td class="data row0 col2" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row0_col2"> 5.32</td>
+                        <td class="data row0 col3" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row0_col3">***</td>
+                        <td class="data row0 col4" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row0_col4"> 0.00</td>
+                        <td class="data row0 col5" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row0_col5"></td>
+            </tr>
+            <tr>
+                        <th class="row_heading level0 row1" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122level0_row1">EmpNonRetail_LowInc</th>
+                        <td class="data row1 col0" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row1_col0">-0.881</td>
+                        <td class="data row1 col1" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row1_col1"> 0.0791</td>
+                        <td class="data row1 col2" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row1_col2">-11.14</td>
+                        <td class="data row1 col3" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row1_col3">***</td>
+                        <td class="data row1 col4" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row1_col4"> 0.00</td>
+                        <td class="data row1 col5" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row1_col5"></td>
+            </tr>
+            <tr>
+                        <th class="row_heading level0 row2" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122level0_row2">EmpRetail_HighInc</th>
+                        <td class="data row2 col0" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row2_col0"> 0.00</td>
+                        <td class="data row2 col1" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row2_col1"> NA</td>
+                        <td class="data row2 col2" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row2_col2"> NA</td>
+                        <td class="data row2 col3" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row2_col3"></td>
+                        <td class="data row2 col4" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row2_col4"> 0.00</td>
+                        <td class="data row2 col5" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row2_col5">fixed value</td>
+            </tr>
+            <tr>
+                        <th class="row_heading level0 row3" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122level0_row3">EmpRetail_LowInc</th>
+                        <td class="data row3 col0" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row3_col0"> 0.00</td>
+                        <td class="data row3 col1" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row3_col1"> NA</td>
+                        <td class="data row3 col2" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row3_col2"> NA</td>
+                        <td class="data row3 col3" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row3_col3"></td>
+                        <td class="data row3 col4" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row3_col4"> 0.00</td>
+                        <td class="data row3 col5" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row3_col5">fixed value</td>
+            </tr>
+            <tr>
+                        <th class="row_heading level0 row4" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122level0_row4">Theta</th>
+                        <td class="data row4 col0" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row4_col0"> 0.749</td>
+                        <td class="data row4 col1" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row4_col1"> 0.0152</td>
+                        <td class="data row4 col2" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row4_col2">-16.45</td>
+                        <td class="data row4 col3" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row4_col3">***</td>
+                        <td class="data row4 col4" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row4_col4"> 1.00</td>
+                        <td class="data row4 col5" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row4_col5"></td>
+            </tr>
+            <tr>
+                        <th class="row_heading level0 row5" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122level0_row5">distance</th>
+                        <td class="data row5 col0" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row5_col0">-0.0418</td>
+                        <td class="data row5 col1" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row5_col1"> 0.0107</td>
+                        <td class="data row5 col2" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row5_col2">-3.90</td>
+                        <td class="data row5 col3" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row5_col3">***</td>
+                        <td class="data row5 col4" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row5_col4"> 0.00</td>
+                        <td class="data row5 col5" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row5_col5"></td>
+            </tr>
+            <tr>
+                        <th class="row_heading level0 row6" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122level0_row6">logsum</th>
+                        <td class="data row6 col0" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row6_col0"> 1.02</td>
+                        <td class="data row6 col1" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row6_col1"> 0.0317</td>
+                        <td class="data row6 col2" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row6_col2"> 32.16</td>
+                        <td class="data row6 col3" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row6_col3">***</td>
+                        <td class="data row6 col4" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row6_col4"> 0.00</td>
+                        <td class="data row6 col5" id="T_c3f4ea6e_8f18_11ea_a0cb_acde48001122row6_col5"></td>
+            </tr>
+    </tbody></table></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">report</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;# Estimation Statistics&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">m</span><span class="o">.</span><span class="n">estimation_statistics</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<h1><a class="toc" name="rx2" reftxt="Estimation Statistics" toclevel="1"></a>Estimation Statistics</h1><div><table><thead><tr><th>Statistic</th><th>Aggregate</th><th>Per Case</th></tr><tr><td>Number of Cases</td><td colspan="2">7564</td></tr><tr><td>Log Likelihood at Convergence</td><td>-25157.73</td><td>-3.33</td></tr><tr><td>Log Likelihood at Null Parameters</td><td>-28238.34</td><td>-3.73</td></tr><tr><td>Rho Squared w.r.t. Null Parameters</td><td colspan="2">0.109</td></tr></thead><tbody></tbody></table></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">report</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;# Utility Functions&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">m</span><span class="o">.</span><span class="n">utility_functions</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<h1><a class="toc" name="rx3" reftxt="Utility Functions" toclevel="1"></a>Utility Functions</h1><div><table class="floatinghead" style="margin-top:1px;"><tr><td style="text-align:left;"><div></div> + <span class="LinearFunc_Param">P.logsum</span> * <span class="LinearFunc_Data">X.logsum</span><br> + <span class="LinearFunc_Param">P.distance</span> * <span class="LinearFunc_Data">X.distance</span><br> + <span class="Larch_Parameter">P.Theta</span> * log(<br>   + <span></span>exp(<span class="LinearFunc_Param">P.EmpRetail_HighInc</span>) * <span class="LinearFunc_Data">X('RETAIL_EMP * (INCOME&gt;50000)')</span><br>   + <span></span>exp(<span class="LinearFunc_Param">P.EmpNonRetail_HighInc</span>) * <span class="LinearFunc_Data">X('NONRETAIL_EMP*(INCOME&gt;50000)')</span><br>   + <span></span>exp(<span class="LinearFunc_Param">P.EmpRetail_LowInc</span>) * <span class="LinearFunc_Data">X('RETAIL_EMP*(INCOME&lt;=50000)')</span><br>   + <span></span>exp(<span class="LinearFunc_Param">P.EmpNonRetail_LowInc</span>) * <span class="LinearFunc_Data">X('NONRETAIL_EMP*(INCOME&lt;=50000)')</span><br>)</td></tr></table></div></div>
+</div>
+<p>The figures shown above can also be inserted directly into reports.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">figure</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">distribution_on_idca_variable</span><span class="p">(</span>
+    <span class="s1">&#39;distance&#39;</span><span class="p">,</span>
+    <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Distance (miles)&quot;</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="s1">&#39;kde&#39;</span><span class="p">,</span>
+    <span class="n">header</span><span class="o">=</span><span class="s1">&#39;Destination Distance&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">report</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;# Visualization&quot;</span>
+<span class="n">report</span> <span class="o">&lt;&lt;</span> <span class="n">figure</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<h1><a class="toc" name="rx4" reftxt="Visualization" toclevel="1"></a>Visualization</h1><div xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="figure"><svg height="291.75625pt" version="1.1" viewBox="0 0 436.078125 291.75625" width="436.078125pt">
+ <defs>
+  <style type="text/css">
+*{stroke-linecap:butt;stroke-linejoin:round;}
+  </style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 291.75625  L 436.078125 291.75625  L 436.078125 0  L 0 0  z " style="fill:#ffffff;"></path>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 20.878125 254.2  L 428.878125 254.2  L 428.878125 7.2  L 20.878125 7.2  z " style="fill:none;"></path>
+   </g>
+   <g id="PolyCollection_1">
+    <defs>
+     <path d="M 20.878125 -48.783523  L 20.878125 -98.889529  L 22.516679 -107.921292  L 24.155233 -116.574209  L 25.793788 -124.695838  L 27.432342 -132.381394  L 29.070896 -139.972532  L 30.70945 -147.995214  L 32.348005 -157.049607  L 33.986559 -167.672602  L 35.625113 -180.194489  L 37.263667 -194.610749  L 38.902221 -210.492604  L 40.540776 -226.964853  L 42.17933 -242.778734  L 43.817884 -256.491461  L 45.456438 -266.730938  L 47.094992 -272.484864  L 48.733547 -273.328977  L 50.372101 -269.517556  L 52.010655 -261.903031  L 53.649209 -251.713028  L 55.287764 -240.263621  L 56.926318 -228.703505  L 58.564872 -217.860251  L 60.203426 -208.211465  L 61.84198 -199.955219  L 63.480535 -193.125814  L 65.119089 -187.700101  L 66.757643 -183.660061  L 68.396197 -181.005445  L 70.034752 -179.732805  L 71.673306 -179.806264  L 73.31186 -181.140338  L 74.950414 -183.601574  L 76.588968 -187.021945  L 78.227523 -191.210017  L 79.866077 -195.948915  L 81.504631 -200.980404  L 83.143185 -205.985915  L 84.781739 -210.581479  L 86.420294 -214.340786  L 88.058848 -216.84993  L 89.697402 -217.783391  L 91.335956 -216.979397  L 92.974511 -214.489158  L 94.613065 -210.58073  L 96.251619 -205.692752  L 97.890173 -200.350401  L 99.528727 -195.068192  L 101.167282 -190.266154  L 102.805836 -186.217154  L 104.44439 -183.029108  L 106.082944 -180.654429  L 107.721498 -178.915499  L 109.360053 -177.538892  L 110.998607 -176.197059  L 112.637161 -174.558651  L 114.275715 -172.345231  L 115.91427 -169.385633  L 117.552824 -165.654569  L 119.191378 -161.283025  L 120.829932 -156.534653  L 122.468486 -151.751864  L 124.107041 -147.283857  L 125.745595 -143.413811  L 127.384149 -140.303061  L 129.022703 -137.966351  L 130.661258 -136.284708  L 132.299812 -135.052338  L 133.938366 -134.043374  L 135.57692 -133.077209  L 137.215474 -132.0609  L 138.854029 -130.995132  L 140.492583 -129.944126  L 142.131137 -128.98422  L 143.769691 -128.154381  L 145.408245 -127.430706  L 147.0468 -126.736171  L 148.685354 -125.981024  L 150.323908 -125.114968  L 151.962462 -124.166082  L 153.601017 -123.246218  L 155.239571 -122.517025  L 156.878125 -122.128592  L 158.516679 -122.156042  L 160.155233 -122.561505  L 161.793788 -123.198129  L 163.432342 -123.854062  L 165.070896 -124.316822  L 166.70945 -124.431341  L 168.348005 -124.131417  L 169.986559 -123.44003  L 171.625113 -122.449045  L 173.263667 -121.294627  L 174.902221 -120.138755  L 176.540776 -119.1556  L 178.17933 -118.513443  L 179.817884 -118.344737  L 181.456438 -118.707495  L 183.094992 -119.552329  L 184.733547 -120.71259  L 186.372101 -121.927113  L 188.010655 -122.890618  L 189.649209 -123.314801  L 191.287764 -122.980203  L 192.926318 -121.765759  L 194.564872 -119.654201  L 196.203426 -116.720593  L 197.84198 -113.114223  L 199.480535 -109.041083  L 201.119089 -104.74868  L 202.757643 -100.510294  L 204.396197 -96.604356  L 206.034752 -93.286631  L 207.673306 -90.757278  L 209.31186 -89.129585  L 210.950414 -88.41008  L 212.588968 -88.498783  L 214.227523 -89.213283  L 215.866077 -90.332367  L 217.504631 -91.647086  L 219.143185 -93.002868  L 220.781739 -94.318041  L 222.420294 -95.572153  L 224.058848 -96.769249  L 225.697402 -97.892014  L 227.335956 -98.867331  L 228.974511 -99.559563  L 230.613065 -99.795959  L 232.251619 -99.41449  L 233.890173 -98.314665  L 235.528727 -96.491192  L 237.167282 -94.038324  L 238.805836 -91.125141  L 240.44439 -87.952687  L 242.082944 -84.708904  L 243.721498 -81.535666  L 245.360053 -78.516128  L 246.998607 -75.682932  L 248.637161 -73.041231  L 250.275715 -70.596703  L 251.91427 -68.378489  L 253.552824 -66.450107  L 255.191378 -64.906448  L 256.829932 -63.859811  L 258.468486 -63.420471  L 260.107041 -63.676994  L 261.745595 -64.679388  L 263.384149 -66.426169  L 265.022703 -68.855821  L 266.661258 -71.84375  L 268.299812 -75.206469  L 269.938366 -78.714214  L 271.57692 -82.111366  L 273.215474 -85.141921  L 274.854029 -87.575932  L 276.492583 -89.232926  L 278.131137 -89.99933  L 279.769691 -89.8382  L 281.408245 -88.790302  L 283.0468 -86.966043  L 284.685354 -84.528385  L 286.323908 -81.668321  L 287.962462 -78.576792  L 289.601017 -75.418981  L 291.239571 -72.317473  L 292.878125 -69.348637  L 294.516679 -66.552201  L 296.155233 -63.949115  L 297.793788 -61.559825  L 299.432342 -59.415678  L 301.070896 -57.559865  L 302.70945 -56.039324  L 304.348005 -54.892699  L 305.986559 -54.14034  L 307.625113 -53.780356  L 309.263667 -53.791325  L 310.902221 -54.139088  L 312.540776 -54.78364  L 314.17933 -55.68269  L 315.817884 -56.790544  L 317.456438 -58.053445  L 319.094992 -59.404215  L 320.733547 -60.759459  L 322.372101 -62.021656  L 324.010655 -63.086818  L 325.649209 -63.856622  L 327.287764 -64.252514  L 328.926318 -64.228645  L 330.564872 -63.78047  L 332.203426 -62.946723  L 333.84198 -61.803876  L 335.480535 -60.453989  L 337.119089 -59.008455  L 338.757643 -57.571172  L 340.396197 -56.224786  L 342.034752 -55.022767  L 343.673306 -53.98844  L 345.31186 -53.120209  L 346.950414 -52.400594  L 348.588968 -51.806022  L 350.227523 -51.31466  L 351.866077 -50.91082  L 353.504631 -50.585919  L 355.143185 -50.337048  L 356.781739 -50.164548  L 358.420294 -50.069707  L 360.058848 -50.053009  L 361.697402 -50.112862  L 363.335956 -50.244489  L 364.974511 -50.43879  L 366.613065 -50.681348  L 368.251619 -50.952021  L 369.890173 -51.225667  L 371.528727 -51.474316  L 373.167282 -51.670649  L 374.805836 -51.792149  L 376.44439 -51.824905  L 378.082944 -51.766058  L 379.721498 -51.624103  L 381.360053 -51.416862  L 382.998607 -51.167551  L 384.637161 -50.899967  L 386.275715 -50.634107  L 387.91427 -50.383386  L 389.552824 -50.154117  L 391.191378 -49.947081  L 392.829932 -49.760329  L 394.468486 -49.591981  L 396.107041 -49.442006  L 397.745595 -49.312487  L 399.384149 -49.206592  L 401.022703 -49.126944  L 402.661258 -49.07418  L 404.299812 -49.04627  L 405.938366 -49.038752  L 407.57692 -49.04569  L 409.215474 -49.060913  L 410.854029 -49.079109  L 412.492583 -49.096472  L 414.131137 -49.110815  L 415.769691 -49.121268  L 417.408245 -49.127768  L 419.0468 -49.130545  L 420.685354 -49.129741  L 422.323908 -49.1252  L 423.962462 -49.116425  L 425.601017 -49.102697  L 427.239571 -49.08334  L 428.878125 -49.058071  L 428.878125 -48.783523  L 428.878125 -48.783523  L 427.239571 -48.783523  L 425.601017 -48.783523  L 423.962462 -48.783523  L 422.323908 -48.783523  L 420.685354 -48.783523  L 419.0468 -48.783523  L 417.408245 -48.783523  L 415.769691 -48.783523  L 414.131137 -48.783523  L 412.492583 -48.783523  L 410.854029 -48.783523  L 409.215474 -48.783523  L 407.57692 -48.783523  L 405.938366 -48.783523  L 404.299812 -48.783523  L 402.661258 -48.783523  L 401.022703 -48.783523  L 399.384149 -48.783523  L 397.745595 -48.783523  L 396.107041 -48.783523  L 394.468486 -48.783523  L 392.829932 -48.783523  L 391.191378 -48.783523  L 389.552824 -48.783523  L 387.91427 -48.783523  L 386.275715 -48.783523  L 384.637161 -48.783523  L 382.998607 -48.783523  L 381.360053 -48.783523  L 379.721498 -48.783523  L 378.082944 -48.783523  L 376.44439 -48.783523  L 374.805836 -48.783523  L 373.167282 -48.783523  L 371.528727 -48.783523  L 369.890173 -48.783523  L 368.251619 -48.783523  L 366.613065 -48.783523  L 364.974511 -48.783523  L 363.335956 -48.783523  L 361.697402 -48.783523  L 360.058848 -48.783523  L 358.420294 -48.783523  L 356.781739 -48.783523  L 355.143185 -48.783523  L 353.504631 -48.783523  L 351.866077 -48.783523  L 350.227523 -48.783523  L 348.588968 -48.783523  L 346.950414 -48.783523  L 345.31186 -48.783523  L 343.673306 -48.783523  L 342.034752 -48.783523  L 340.396197 -48.783523  L 338.757643 -48.783523  L 337.119089 -48.783523  L 335.480535 -48.783523  L 333.84198 -48.783523  L 332.203426 -48.783523  L 330.564872 -48.783523  L 328.926318 -48.783523  L 327.287764 -48.783523  L 325.649209 -48.783523  L 324.010655 -48.783523  L 322.372101 -48.783523  L 320.733547 -48.783523  L 319.094992 -48.783523  L 317.456438 -48.783523  L 315.817884 -48.783523  L 314.17933 -48.783523  L 312.540776 -48.783523  L 310.902221 -48.783523  L 309.263667 -48.783523  L 307.625113 -48.783523  L 305.986559 -48.783523  L 304.348005 -48.783523  L 302.70945 -48.783523  L 301.070896 -48.783523  L 299.432342 -48.783523  L 297.793788 -48.783523  L 296.155233 -48.783523  L 294.516679 -48.783523  L 292.878125 -48.783523  L 291.239571 -48.783523  L 289.601017 -48.783523  L 287.962462 -48.783523  L 286.323908 -48.783523  L 284.685354 -48.783523  L 283.0468 -48.783523  L 281.408245 -48.783523  L 279.769691 -48.783523  L 278.131137 -48.783523  L 276.492583 -48.783523  L 274.854029 -48.783523  L 273.215474 -48.783523  L 271.57692 -48.783523  L 269.938366 -48.783523  L 268.299812 -48.783523  L 266.661258 -48.783523  L 265.022703 -48.783523  L 263.384149 -48.783523  L 261.745595 -48.783523  L 260.107041 -48.783523  L 258.468486 -48.783523  L 256.829932 -48.783523  L 255.191378 -48.783523  L 253.552824 -48.783523  L 251.91427 -48.783523  L 250.275715 -48.783523  L 248.637161 -48.783523  L 246.998607 -48.783523  L 245.360053 -48.783523  L 243.721498 -48.783523  L 242.082944 -48.783523  L 240.44439 -48.783523  L 238.805836 -48.783523  L 237.167282 -48.783523  L 235.528727 -48.783523  L 233.890173 -48.783523  L 232.251619 -48.783523  L 230.613065 -48.783523  L 228.974511 -48.783523  L 227.335956 -48.783523  L 225.697402 -48.783523  L 224.058848 -48.783523  L 222.420294 -48.783523  L 220.781739 -48.783523  L 219.143185 -48.783523  L 217.504631 -48.783523  L 215.866077 -48.783523  L 214.227523 -48.783523  L 212.588968 -48.783523  L 210.950414 -48.783523  L 209.31186 -48.783523  L 207.673306 -48.783523  L 206.034752 -48.783523  L 204.396197 -48.783523  L 202.757643 -48.783523  L 201.119089 -48.783523  L 199.480535 -48.783523  L 197.84198 -48.783523  L 196.203426 -48.783523  L 194.564872 -48.783523  L 192.926318 -48.783523  L 191.287764 -48.783523  L 189.649209 -48.783523  L 188.010655 -48.783523  L 186.372101 -48.783523  L 184.733547 -48.783523  L 183.094992 -48.783523  L 181.456438 -48.783523  L 179.817884 -48.783523  L 178.17933 -48.783523  L 176.540776 -48.783523  L 174.902221 -48.783523  L 173.263667 -48.783523  L 171.625113 -48.783523  L 169.986559 -48.783523  L 168.348005 -48.783523  L 166.70945 -48.783523  L 165.070896 -48.783523  L 163.432342 -48.783523  L 161.793788 -48.783523  L 160.155233 -48.783523  L 158.516679 -48.783523  L 156.878125 -48.783523  L 155.239571 -48.783523  L 153.601017 -48.783523  L 151.962462 -48.783523  L 150.323908 -48.783523  L 148.685354 -48.783523  L 147.0468 -48.783523  L 145.408245 -48.783523  L 143.769691 -48.783523  L 142.131137 -48.783523  L 140.492583 -48.783523  L 138.854029 -48.783523  L 137.215474 -48.783523  L 135.57692 -48.783523  L 133.938366 -48.783523  L 132.299812 -48.783523  L 130.661258 -48.783523  L 129.022703 -48.783523  L 127.384149 -48.783523  L 125.745595 -48.783523  L 124.107041 -48.783523  L 122.468486 -48.783523  L 120.829932 -48.783523  L 119.191378 -48.783523  L 117.552824 -48.783523  L 115.91427 -48.783523  L 114.275715 -48.783523  L 112.637161 -48.783523  L 110.998607 -48.783523  L 109.360053 -48.783523  L 107.721498 -48.783523  L 106.082944 -48.783523  L 104.44439 -48.783523  L 102.805836 -48.783523  L 101.167282 -48.783523  L 99.528727 -48.783523  L 97.890173 -48.783523  L 96.251619 -48.783523  L 94.613065 -48.783523  L 92.974511 -48.783523  L 91.335956 -48.783523  L 89.697402 -48.783523  L 88.058848 -48.783523  L 86.420294 -48.783523  L 84.781739 -48.783523  L 83.143185 -48.783523  L 81.504631 -48.783523  L 79.866077 -48.783523  L 78.227523 -48.783523  L 76.588968 -48.783523  L 74.950414 -48.783523  L 73.31186 -48.783523  L 71.673306 -48.783523  L 70.034752 -48.783523  L 68.396197 -48.783523  L 66.757643 -48.783523  L 65.119089 -48.783523  L 63.480535 -48.783523  L 61.84198 -48.783523  L 60.203426 -48.783523  L 58.564872 -48.783523  L 56.926318 -48.783523  L 55.287764 -48.783523  L 53.649209 -48.783523  L 52.010655 -48.783523  L 50.372101 -48.783523  L 48.733547 -48.783523  L 47.094992 -48.783523  L 45.456438 -48.783523  L 43.817884 -48.783523  L 42.17933 -48.783523  L 40.540776 -48.783523  L 38.902221 -48.783523  L 37.263667 -48.783523  L 35.625113 -48.783523  L 33.986559 -48.783523  L 32.348005 -48.783523  L 30.70945 -48.783523  L 29.070896 -48.783523  L 27.432342 -48.783523  L 25.793788 -48.783523  L 24.155233 -48.783523  L 22.516679 -48.783523  L 20.878125 -48.783523  z " id="mebad30f91f" style="stroke:#ffa200;stroke-width:1.5;"></path>
+    </defs>
+    <g clip-path="url(#pc69cc1174f)">
+     <use style="fill:#ffbe4d;stroke:#ffa200;stroke-width:1.5;" x="0" y="291.75625" xlink:href="#mebad30f91f"></use>
+    </g>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path d="M 0 0  L 0 3.5  " id="mfa671438d8" style="stroke:#000000;stroke-width:0.8;"></path>
+      </defs>
+      <g>
+       <use style="stroke:#000000;stroke-width:0.8;" x="70.979864" y="254.2" xlink:href="#mfa671438d8"></use>
+      </g>
+     </g>
+     <g id="text_1">
+
+      <defs>
+       <path d="M 19.1875 8.296875  L 53.609375 8.296875  L 53.609375 0  L 7.328125 0  L 7.328125 8.296875  Q 12.9375 14.109375 22.625 23.890625  Q 32.328125 33.6875 34.8125 36.53125  Q 39.546875 41.84375 41.421875 45.53125  Q 43.3125 49.21875 43.3125 52.78125  Q 43.3125 58.59375 39.234375 62.25  Q 35.15625 65.921875 28.609375 65.921875  Q 23.96875 65.921875 18.8125 64.3125  Q 13.671875 62.703125 7.8125 59.421875  L 7.8125 69.390625  Q 13.765625 71.78125 18.9375 73  Q 24.125 74.21875 28.421875 74.21875  Q 39.75 74.21875 46.484375 68.546875  Q 53.21875 62.890625 53.21875 53.421875  Q 53.21875 48.921875 51.53125 44.890625  Q 49.859375 40.875 45.40625 35.40625  Q 44.1875 33.984375 37.640625 27.21875  Q 31.109375 20.453125 19.1875 8.296875  z " id="DejaVuSans-50"></path>
+      </defs>
+      <g transform="translate(67.798614 268.798438)scale(0.1 -0.1)">
+       <use xlink:href="#DejaVuSans-50"></use>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.8;" x="140.417593" y="254.2" xlink:href="#mfa671438d8"></use>
+      </g>
+     </g>
+     <g id="text_2">
+
+      <defs>
+       <path d="M 37.796875 64.3125  L 12.890625 25.390625  L 37.796875 25.390625  z M 35.203125 72.90625  L 47.609375 72.90625  L 47.609375 25.390625  L 58.015625 25.390625  L 58.015625 17.1875  L 47.609375 17.1875  L 47.609375 0  L 37.796875 0  L 37.796875 17.1875  L 4.890625 17.1875  L 4.890625 26.703125  z " id="DejaVuSans-52"></path>
+      </defs>
+      <g transform="translate(137.236343 268.798438)scale(0.1 -0.1)">
+       <use xlink:href="#DejaVuSans-52"></use>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.8;" x="209.855321" y="254.2" xlink:href="#mfa671438d8"></use>
+      </g>
+     </g>
+     <g id="text_3">
+
+      <defs>
+       <path d="M 33.015625 40.375  Q 26.375 40.375 22.484375 35.828125  Q 18.609375 31.296875 18.609375 23.390625  Q 18.609375 15.53125 22.484375 10.953125  Q 26.375 6.390625 33.015625 6.390625  Q 39.65625 6.390625 43.53125 10.953125  Q 47.40625 15.53125 47.40625 23.390625  Q 47.40625 31.296875 43.53125 35.828125  Q 39.65625 40.375 33.015625 40.375  z M 52.59375 71.296875  L 52.59375 62.3125  Q 48.875 64.0625 45.09375 64.984375  Q 41.3125 65.921875 37.59375 65.921875  Q 27.828125 65.921875 22.671875 59.328125  Q 17.53125 52.734375 16.796875 39.40625  Q 19.671875 43.65625 24.015625 45.921875  Q 28.375 48.1875 33.59375 48.1875  Q 44.578125 48.1875 50.953125 41.515625  Q 57.328125 34.859375 57.328125 23.390625  Q 57.328125 12.15625 50.6875 5.359375  Q 44.046875 -1.421875 33.015625 -1.421875  Q 20.359375 -1.421875 13.671875 8.265625  Q 6.984375 17.96875 6.984375 36.375  Q 6.984375 53.65625 15.1875 63.9375  Q 23.390625 74.21875 37.203125 74.21875  Q 40.921875 74.21875 44.703125 73.484375  Q 48.484375 72.75 52.59375 71.296875  z " id="DejaVuSans-54"></path>
+      </defs>
+      <g transform="translate(206.674071 268.798438)scale(0.1 -0.1)">
+       <use xlink:href="#DejaVuSans-54"></use>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_4">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.8;" x="279.29305" y="254.2" xlink:href="#mfa671438d8"></use>
+      </g>
+     </g>
+     <g id="text_4">
+
+      <defs>
+       <path d="M 31.78125 34.625  Q 24.75 34.625 20.71875 30.859375  Q 16.703125 27.09375 16.703125 20.515625  Q 16.703125 13.921875 20.71875 10.15625  Q 24.75 6.390625 31.78125 6.390625  Q 38.8125 6.390625 42.859375 10.171875  Q 46.921875 13.96875 46.921875 20.515625  Q 46.921875 27.09375 42.890625 30.859375  Q 38.875 34.625 31.78125 34.625  z M 21.921875 38.8125  Q 15.578125 40.375 12.03125 44.71875  Q 8.5 49.078125 8.5 55.328125  Q 8.5 64.0625 14.71875 69.140625  Q 20.953125 74.21875 31.78125 74.21875  Q 42.671875 74.21875 48.875 69.140625  Q 55.078125 64.0625 55.078125 55.328125  Q 55.078125 49.078125 51.53125 44.71875  Q 48 40.375 41.703125 38.8125  Q 48.828125 37.15625 52.796875 32.3125  Q 56.78125 27.484375 56.78125 20.515625  Q 56.78125 9.90625 50.3125 4.234375  Q 43.84375 -1.421875 31.78125 -1.421875  Q 19.734375 -1.421875 13.25 4.234375  Q 6.78125 9.90625 6.78125 20.515625  Q 6.78125 27.484375 10.78125 32.3125  Q 14.796875 37.15625 21.921875 38.8125  z M 18.3125 54.390625  Q 18.3125 48.734375 21.84375 45.5625  Q 25.390625 42.390625 31.78125 42.390625  Q 38.140625 42.390625 41.71875 45.5625  Q 45.3125 48.734375 45.3125 54.390625  Q 45.3125 60.0625 41.71875 63.234375  Q 38.140625 66.40625 31.78125 66.40625  Q 25.390625 66.40625 21.84375 63.234375  Q 18.3125 60.0625 18.3125 54.390625  z " id="DejaVuSans-56"></path>
+      </defs>
+      <g transform="translate(276.1118 268.798438)scale(0.1 -0.1)">
+       <use xlink:href="#DejaVuSans-56"></use>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_5">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.8;" x="348.730779" y="254.2" xlink:href="#mfa671438d8"></use>
+      </g>
+     </g>
+     <g id="text_5">
+
+      <defs>
+       <path d="M 12.40625 8.296875  L 28.515625 8.296875  L 28.515625 63.921875  L 10.984375 60.40625  L 10.984375 69.390625  L 28.421875 72.90625  L 38.28125 72.90625  L 38.28125 8.296875  L 54.390625 8.296875  L 54.390625 0  L 12.40625 0  z " id="DejaVuSans-49"></path>
+       <path d="M 31.78125 66.40625  Q 24.171875 66.40625 20.328125 58.90625  Q 16.5 51.421875 16.5 36.375  Q 16.5 21.390625 20.328125 13.890625  Q 24.171875 6.390625 31.78125 6.390625  Q 39.453125 6.390625 43.28125 13.890625  Q 47.125 21.390625 47.125 36.375  Q 47.125 51.421875 43.28125 58.90625  Q 39.453125 66.40625 31.78125 66.40625  z M 31.78125 74.21875  Q 44.046875 74.21875 50.515625 64.515625  Q 56.984375 54.828125 56.984375 36.375  Q 56.984375 17.96875 50.515625 8.265625  Q 44.046875 -1.421875 31.78125 -1.421875  Q 19.53125 -1.421875 13.0625 8.265625  Q 6.59375 17.96875 6.59375 36.375  Q 6.59375 54.828125 13.0625 64.515625  Q 19.53125 74.21875 31.78125 74.21875  z " id="DejaVuSans-48"></path>
+      </defs>
+      <g transform="translate(342.368279 268.798438)scale(0.1 -0.1)">
+       <use xlink:href="#DejaVuSans-49"></use>
+       <use x="63.623047" xlink:href="#DejaVuSans-48"></use>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_6">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.8;" x="418.168508" y="254.2" xlink:href="#mfa671438d8"></use>
+      </g>
+     </g>
+     <g id="text_6">
+
+      <g transform="translate(411.806008 268.798438)scale(0.1 -0.1)">
+       <use xlink:href="#DejaVuSans-49"></use>
+       <use x="63.623047" xlink:href="#DejaVuSans-50"></use>
+      </g>
+     </g>
+    </g>
+    <g id="text_7">
+
+     <defs>
+      <path d="M 19.671875 64.796875  L 19.671875 8.109375  L 31.59375 8.109375  Q 46.6875 8.109375 53.6875 14.9375  Q 60.6875 21.78125 60.6875 36.53125  Q 60.6875 51.171875 53.6875 57.984375  Q 46.6875 64.796875 31.59375 64.796875  z M 9.8125 72.90625  L 30.078125 72.90625  Q 51.265625 72.90625 61.171875 64.09375  Q 71.09375 55.28125 71.09375 36.53125  Q 71.09375 17.671875 61.125 8.828125  Q 51.171875 0 30.078125 0  L 9.8125 0  z " id="DejaVuSans-68"></path>
+      <path d="M 9.421875 54.6875  L 18.40625 54.6875  L 18.40625 0  L 9.421875 0  z M 9.421875 75.984375  L 18.40625 75.984375  L 18.40625 64.59375  L 9.421875 64.59375  z " id="DejaVuSans-105"></path>
+      <path d="M 44.28125 53.078125  L 44.28125 44.578125  Q 40.484375 46.53125 36.375 47.5  Q 32.28125 48.484375 27.875 48.484375  Q 21.1875 48.484375 17.84375 46.4375  Q 14.5 44.390625 14.5 40.28125  Q 14.5 37.15625 16.890625 35.375  Q 19.28125 33.59375 26.515625 31.984375  L 29.59375 31.296875  Q 39.15625 29.25 43.1875 25.515625  Q 47.21875 21.78125 47.21875 15.09375  Q 47.21875 7.46875 41.1875 3.015625  Q 35.15625 -1.421875 24.609375 -1.421875  Q 20.21875 -1.421875 15.453125 -0.5625  Q 10.6875 0.296875 5.421875 2  L 5.421875 11.28125  Q 10.40625 8.6875 15.234375 7.390625  Q 20.0625 6.109375 24.8125 6.109375  Q 31.15625 6.109375 34.5625 8.28125  Q 37.984375 10.453125 37.984375 14.40625  Q 37.984375 18.0625 35.515625 20.015625  Q 33.0625 21.96875 24.703125 23.78125  L 21.578125 24.515625  Q 13.234375 26.265625 9.515625 29.90625  Q 5.8125 33.546875 5.8125 39.890625  Q 5.8125 47.609375 11.28125 51.796875  Q 16.75 56 26.8125 56  Q 31.78125 56 36.171875 55.265625  Q 40.578125 54.546875 44.28125 53.078125  z " id="DejaVuSans-115"></path>
+      <path d="M 18.3125 70.21875  L 18.3125 54.6875  L 36.8125 54.6875  L 36.8125 47.703125  L 18.3125 47.703125  L 18.3125 18.015625  Q 18.3125 11.328125 20.140625 9.421875  Q 21.96875 7.515625 27.59375 7.515625  L 36.8125 7.515625  L 36.8125 0  L 27.59375 0  Q 17.1875 0 13.234375 3.875  Q 9.28125 7.765625 9.28125 18.015625  L 9.28125 47.703125  L 2.6875 47.703125  L 2.6875 54.6875  L 9.28125 54.6875  L 9.28125 70.21875  z " id="DejaVuSans-116"></path>
+      <path d="M 34.28125 27.484375  Q 23.390625 27.484375 19.1875 25  Q 14.984375 22.515625 14.984375 16.5  Q 14.984375 11.71875 18.140625 8.90625  Q 21.296875 6.109375 26.703125 6.109375  Q 34.1875 6.109375 38.703125 11.40625  Q 43.21875 16.703125 43.21875 25.484375  L 43.21875 27.484375  z M 52.203125 31.203125  L 52.203125 0  L 43.21875 0  L 43.21875 8.296875  Q 40.140625 3.328125 35.546875 0.953125  Q 30.953125 -1.421875 24.3125 -1.421875  Q 15.921875 -1.421875 10.953125 3.296875  Q 6 8.015625 6 15.921875  Q 6 25.140625 12.171875 29.828125  Q 18.359375 34.515625 30.609375 34.515625  L 43.21875 34.515625  L 43.21875 35.40625  Q 43.21875 41.609375 39.140625 45  Q 35.0625 48.390625 27.6875 48.390625  Q 23 48.390625 18.546875 47.265625  Q 14.109375 46.140625 10.015625 43.890625  L 10.015625 52.203125  Q 14.9375 54.109375 19.578125 55.046875  Q 24.21875 56 28.609375 56  Q 40.484375 56 46.34375 49.84375  Q 52.203125 43.703125 52.203125 31.203125  z " id="DejaVuSans-97"></path>
+      <path d="M 54.890625 33.015625  L 54.890625 0  L 45.90625 0  L 45.90625 32.71875  Q 45.90625 40.484375 42.875 44.328125  Q 39.84375 48.1875 33.796875 48.1875  Q 26.515625 48.1875 22.3125 43.546875  Q 18.109375 38.921875 18.109375 30.90625  L 18.109375 0  L 9.078125 0  L 9.078125 54.6875  L 18.109375 54.6875  L 18.109375 46.1875  Q 21.34375 51.125 25.703125 53.5625  Q 30.078125 56 35.796875 56  Q 45.21875 56 50.046875 50.171875  Q 54.890625 44.34375 54.890625 33.015625  z " id="DejaVuSans-110"></path>
+      <path d="M 48.78125 52.59375  L 48.78125 44.1875  Q 44.96875 46.296875 41.140625 47.34375  Q 37.3125 48.390625 33.40625 48.390625  Q 24.65625 48.390625 19.8125 42.84375  Q 14.984375 37.3125 14.984375 27.296875  Q 14.984375 17.28125 19.8125 11.734375  Q 24.65625 6.203125 33.40625 6.203125  Q 37.3125 6.203125 41.140625 7.25  Q 44.96875 8.296875 48.78125 10.40625  L 48.78125 2.09375  Q 45.015625 0.34375 40.984375 -0.53125  Q 36.96875 -1.421875 32.421875 -1.421875  Q 20.0625 -1.421875 12.78125 6.34375  Q 5.515625 14.109375 5.515625 27.296875  Q 5.515625 40.671875 12.859375 48.328125  Q 20.21875 56 33.015625 56  Q 37.15625 56 41.109375 55.140625  Q 45.0625 54.296875 48.78125 52.59375  z " id="DejaVuSans-99"></path>
+      <path d="M 56.203125 29.59375  L 56.203125 25.203125  L 14.890625 25.203125  Q 15.484375 15.921875 20.484375 11.0625  Q 25.484375 6.203125 34.421875 6.203125  Q 39.59375 6.203125 44.453125 7.46875  Q 49.3125 8.734375 54.109375 11.28125  L 54.109375 2.78125  Q 49.265625 0.734375 44.1875 -0.34375  Q 39.109375 -1.421875 33.890625 -1.421875  Q 20.796875 -1.421875 13.15625 6.1875  Q 5.515625 13.8125 5.515625 26.8125  Q 5.515625 40.234375 12.765625 48.109375  Q 20.015625 56 32.328125 56  Q 43.359375 56 49.78125 48.890625  Q 56.203125 41.796875 56.203125 29.59375  z M 47.21875 32.234375  Q 47.125 39.59375 43.09375 43.984375  Q 39.0625 48.390625 32.421875 48.390625  Q 24.90625 48.390625 20.390625 44.140625  Q 15.875 39.890625 15.1875 32.171875  z " id="DejaVuSans-101"></path>
+      <path id="DejaVuSans-32"></path>
+      <path d="M 31 75.875  Q 24.46875 64.65625 21.28125 53.65625  Q 18.109375 42.671875 18.109375 31.390625  Q 18.109375 20.125 21.3125 9.0625  Q 24.515625 -2 31 -13.1875  L 23.1875 -13.1875  Q 15.875 -1.703125 12.234375 9.375  Q 8.59375 20.453125 8.59375 31.390625  Q 8.59375 42.28125 12.203125 53.3125  Q 15.828125 64.359375 23.1875 75.875  z " id="DejaVuSans-40"></path>
+      <path d="M 52 44.1875  Q 55.375 50.25 60.0625 53.125  Q 64.75 56 71.09375 56  Q 79.640625 56 84.28125 50.015625  Q 88.921875 44.046875 88.921875 33.015625  L 88.921875 0  L 79.890625 0  L 79.890625 32.71875  Q 79.890625 40.578125 77.09375 44.375  Q 74.3125 48.1875 68.609375 48.1875  Q 61.625 48.1875 57.5625 43.546875  Q 53.515625 38.921875 53.515625 30.90625  L 53.515625 0  L 44.484375 0  L 44.484375 32.71875  Q 44.484375 40.625 41.703125 44.40625  Q 38.921875 48.1875 33.109375 48.1875  Q 26.21875 48.1875 22.15625 43.53125  Q 18.109375 38.875 18.109375 30.90625  L 18.109375 0  L 9.078125 0  L 9.078125 54.6875  L 18.109375 54.6875  L 18.109375 46.1875  Q 21.1875 51.21875 25.484375 53.609375  Q 29.78125 56 35.6875 56  Q 41.65625 56 45.828125 52.96875  Q 50 49.953125 52 44.1875  z " id="DejaVuSans-109"></path>
+      <path d="M 9.421875 75.984375  L 18.40625 75.984375  L 18.40625 0  L 9.421875 0  z " id="DejaVuSans-108"></path>
+      <path d="M 8.015625 75.875  L 15.828125 75.875  Q 23.140625 64.359375 26.78125 53.3125  Q 30.421875 42.28125 30.421875 31.390625  Q 30.421875 20.453125 26.78125 9.375  Q 23.140625 -1.703125 15.828125 -13.1875  L 8.015625 -13.1875  Q 14.5 -2 17.703125 9.0625  Q 20.90625 20.125 20.90625 31.390625  Q 20.90625 42.671875 17.703125 53.65625  Q 14.5 64.65625 8.015625 75.875  z " id="DejaVuSans-41"></path>
+     </defs>
+     <g transform="translate(184.195312 282.476562)scale(0.1 -0.1)">
+      <use xlink:href="#DejaVuSans-68"></use>
+      <use x="77.001953" xlink:href="#DejaVuSans-105"></use>
+      <use x="104.785156" xlink:href="#DejaVuSans-115"></use>
+      <use x="156.884766" xlink:href="#DejaVuSans-116"></use>
+      <use x="196.09375" xlink:href="#DejaVuSans-97"></use>
+      <use x="257.373047" xlink:href="#DejaVuSans-110"></use>
+      <use x="320.751953" xlink:href="#DejaVuSans-99"></use>
+      <use x="375.732422" xlink:href="#DejaVuSans-101"></use>
+      <use x="437.255859" xlink:href="#DejaVuSans-32"></use>
+      <use x="469.042969" xlink:href="#DejaVuSans-40"></use>
+      <use x="508.056641" xlink:href="#DejaVuSans-109"></use>
+      <use x="605.46875" xlink:href="#DejaVuSans-105"></use>
+      <use x="633.251953" xlink:href="#DejaVuSans-108"></use>
+      <use x="661.035156" xlink:href="#DejaVuSans-101"></use>
+      <use x="722.558594" xlink:href="#DejaVuSans-115"></use>
+      <use x="774.658203" xlink:href="#DejaVuSans-41"></use>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="text_8">
+
+     <defs>
+      <path d="M 44.390625 34.1875  Q 47.5625 33.109375 50.5625 29.59375  Q 53.5625 26.078125 56.59375 19.921875  L 66.609375 0  L 56 0  L 46.6875 18.703125  Q 43.0625 26.03125 39.671875 28.421875  Q 36.28125 30.8125 30.421875 30.8125  L 19.671875 30.8125  L 19.671875 0  L 9.8125 0  L 9.8125 72.90625  L 32.078125 72.90625  Q 44.578125 72.90625 50.734375 67.671875  Q 56.890625 62.453125 56.890625 51.90625  Q 56.890625 45.015625 53.6875 40.46875  Q 50.484375 35.9375 44.390625 34.1875  z M 19.671875 64.796875  L 19.671875 38.921875  L 32.078125 38.921875  Q 39.203125 38.921875 42.84375 42.21875  Q 46.484375 45.515625 46.484375 51.90625  Q 46.484375 58.296875 42.84375 61.546875  Q 39.203125 64.796875 32.078125 64.796875  z " id="DejaVuSans-82"></path>
+      <path d="M 2.984375 54.6875  L 12.5 54.6875  L 29.59375 8.796875  L 46.6875 54.6875  L 56.203125 54.6875  L 35.6875 0  L 23.484375 0  z " id="DejaVuSans-118"></path>
+      <path d="M 9.8125 72.90625  L 51.703125 72.90625  L 51.703125 64.59375  L 19.671875 64.59375  L 19.671875 43.109375  L 48.578125 43.109375  L 48.578125 34.8125  L 19.671875 34.8125  L 19.671875 0  L 9.8125 0  z " id="DejaVuSans-70"></path>
+      <path d="M 41.109375 46.296875  Q 39.59375 47.171875 37.8125 47.578125  Q 36.03125 48 33.890625 48  Q 26.265625 48 22.1875 43.046875  Q 18.109375 38.09375 18.109375 28.8125  L 18.109375 0  L 9.078125 0  L 9.078125 54.6875  L 18.109375 54.6875  L 18.109375 46.1875  Q 20.953125 51.171875 25.484375 53.578125  Q 30.03125 56 36.53125 56  Q 37.453125 56 38.578125 55.875  Q 39.703125 55.765625 41.0625 55.515625  z " id="DejaVuSans-114"></path>
+      <path d="M 14.796875 27.296875  Q 14.796875 17.390625 18.875 11.75  Q 22.953125 6.109375 30.078125 6.109375  Q 37.203125 6.109375 41.296875 11.75  Q 45.40625 17.390625 45.40625 27.296875  Q 45.40625 37.203125 41.296875 42.84375  Q 37.203125 48.484375 30.078125 48.484375  Q 22.953125 48.484375 18.875 42.84375  Q 14.796875 37.203125 14.796875 27.296875  z M 45.40625 8.203125  Q 42.578125 3.328125 38.25 0.953125  Q 33.9375 -1.421875 27.875 -1.421875  Q 17.96875 -1.421875 11.734375 6.484375  Q 5.515625 14.40625 5.515625 27.296875  Q 5.515625 40.1875 11.734375 48.09375  Q 17.96875 56 27.875 56  Q 33.9375 56 38.25 53.625  Q 42.578125 51.265625 45.40625 46.390625  L 45.40625 54.6875  L 54.390625 54.6875  L 54.390625 -20.796875  L 45.40625 -20.796875  z " id="DejaVuSans-113"></path>
+      <path d="M 8.5 21.578125  L 8.5 54.6875  L 17.484375 54.6875  L 17.484375 21.921875  Q 17.484375 14.15625 20.5 10.265625  Q 23.53125 6.390625 29.59375 6.390625  Q 36.859375 6.390625 41.078125 11.03125  Q 45.3125 15.671875 45.3125 23.6875  L 45.3125 54.6875  L 54.296875 54.6875  L 54.296875 0  L 45.3125 0  L 45.3125 8.40625  Q 42.046875 3.421875 37.71875 1  Q 33.40625 -1.421875 27.6875 -1.421875  Q 18.265625 -1.421875 13.375 4.4375  Q 8.5 10.296875 8.5 21.578125  z M 31.109375 56  z " id="DejaVuSans-117"></path>
+      <path d="M 32.171875 -5.078125  Q 28.375 -14.84375 24.75 -17.8125  Q 21.140625 -20.796875 15.09375 -20.796875  L 7.90625 -20.796875  L 7.90625 -13.28125  L 13.1875 -13.28125  Q 16.890625 -13.28125 18.9375 -11.515625  Q 21 -9.765625 23.484375 -3.21875  L 25.09375 0.875  L 2.984375 54.6875  L 12.5 54.6875  L 29.59375 11.921875  L 46.6875 54.6875  L 56.203125 54.6875  z " id="DejaVuSans-121"></path>
+     </defs>
+     <g transform="translate(14.798438 178.282813)rotate(-90)scale(0.1 -0.1)">
+      <use xlink:href="#DejaVuSans-82"></use>
+      <use x="64.982422" xlink:href="#DejaVuSans-101"></use>
+      <use x="126.505859" xlink:href="#DejaVuSans-108"></use>
+      <use x="154.289062" xlink:href="#DejaVuSans-97"></use>
+      <use x="215.568359" xlink:href="#DejaVuSans-116"></use>
+      <use x="254.777344" xlink:href="#DejaVuSans-105"></use>
+      <use x="282.560547" xlink:href="#DejaVuSans-118"></use>
+      <use x="341.740234" xlink:href="#DejaVuSans-101"></use>
+      <use x="403.263672" xlink:href="#DejaVuSans-32"></use>
+      <use x="435.050781" xlink:href="#DejaVuSans-70"></use>
+      <use x="485.320312" xlink:href="#DejaVuSans-114"></use>
+      <use x="524.183594" xlink:href="#DejaVuSans-101"></use>
+      <use x="585.707031" xlink:href="#DejaVuSans-113"></use>
+      <use x="649.183594" xlink:href="#DejaVuSans-117"></use>
+      <use x="712.5625" xlink:href="#DejaVuSans-101"></use>
+      <use x="774.085938" xlink:href="#DejaVuSans-110"></use>
+      <use x="837.464844" xlink:href="#DejaVuSans-99"></use>
+      <use x="892.445312" xlink:href="#DejaVuSans-121"></use>
+     </g>
+    </g>
+   </g>
+   <g id="line2d_7">
+    <path clip-path="url(#pc69cc1174f)" d="M 20.878125 190.705439  L 24.155233 172.143935  L 27.432342 155.55938  L 30.70945 139.603121  L 32.348005 130.709234  L 33.986559 120.572887  L 35.625113 108.926063  L 37.263667 95.795617  L 42.17933 53.179073  L 43.817884 41.27955  L 45.456438 32.441245  L 47.094992 27.477858  L 48.733547 26.707493  L 50.372101 29.889548  L 52.010655 36.302841  L 53.649209 44.936722  L 58.564872 74.365429  L 60.203426 83.168665  L 61.84198 90.978978  L 63.480535 97.716252  L 65.119089 103.325087  L 66.757643 107.734472  L 68.396197 110.860299  L 70.034752 112.634481  L 71.673306 113.037508  L 73.31186 112.115883  L 74.950414 109.977981  L 76.588968 106.775082  L 78.227523 102.682379  L 79.866077 97.893961  L 84.781739 81.931268  L 86.420294 77.277101  L 88.058848 73.695162  L 89.697402 71.60582  L 91.335956 71.303597  L 92.974511 72.888154  L 94.613065 76.233809  L 96.251619 81.00826  L 97.890173 86.734032  L 101.167282 98.909511  L 102.805836 104.41861  L 104.44439 109.108168  L 106.082944 112.843216  L 107.721498 115.653116  L 109.360053 117.722045  L 112.637161 120.93317  L 114.275715 122.810687  L 115.91427 125.256891  L 117.552824 128.37959  L 119.191378 132.103363  L 124.107041 144.18669  L 125.745595 147.521259  L 127.384149 150.228596  L 129.022703 152.34832  L 130.661258 154.032188  L 140.492583 162.650309  L 142.131137 163.784007  L 143.769691 164.682737  L 150.323908 167.637838  L 153.601017 169.369481  L 155.239571 169.938563  L 156.878125 170.086531  L 158.516679 169.746999  L 160.155233 168.982932  L 163.432342 166.951846  L 165.070896 166.14317  L 166.70945 165.69319  L 168.348005 165.648073  L 169.986559 165.963398  L 171.625113 166.535436  L 174.902221 167.920738  L 176.540776 168.464951  L 178.17933 168.749245  L 179.817884 168.692435  L 181.456438 168.277542  L 183.094992 167.576179  L 186.372101 166.044532  L 188.010655 165.710937  L 189.649209 165.987768  L 191.287764 167.043371  L 192.926318 168.958268  L 194.564872 171.723307  L 196.203426 175.248944  L 197.84198 179.377274  L 202.757643 193.015382  L 204.396197 197.041685  L 206.034752 200.356019  L 207.673306 202.770504  L 209.31186 204.198997  L 210.950414 204.672035  L 212.588968 204.328556  L 214.227523 203.383726  L 215.866077 202.07977  L 220.781739 197.832714  L 224.058848 195.335766  L 227.335956 193.158864  L 228.974511 192.387255  L 230.613065 192.033994  L 232.251619 192.254931  L 233.890173 193.146747  L 235.528727 194.715021  L 237.167282 196.871944  L 238.805836 199.462574  L 248.637161 216.473954  L 251.91427 221.541207  L 253.552824 223.782613  L 255.191378 225.668072  L 256.829932 227.050189  L 258.468486 227.792148  L 260.107041 227.794112  L 261.745595 227.013042  L 263.384149 225.473469  L 265.022703 223.269019  L 266.661258 220.555507  L 271.57692 211.518556  L 273.215474 208.977239  L 274.854029 207.003972  L 276.492583 205.728428  L 278.131137 205.217961  L 279.769691 205.474783  L 281.408245 206.439798  L 283.0468 208.00323  L 284.685354 210.021708  L 287.962462 214.814898  L 292.878125 222.247098  L 296.155233 226.883197  L 299.432342 231.156337  L 301.070896 233.057473  L 302.70945 234.71435  L 304.348005 236.059591  L 305.986559 237.040538  L 307.625113 237.628239  L 309.263667 237.820301  L 310.902221 237.638338  L 312.540776 237.122291  L 314.17933 236.324259  L 315.817884 235.303866  L 319.094992 232.861691  L 322.372101 230.390107  L 324.010655 229.358914  L 325.649209 228.58537  L 327.287764 228.150608  L 328.926318 228.113257  L 330.564872 228.497088  L 332.203426 229.282879  L 333.84198 230.407794  L 337.119089 233.262158  L 340.396197 236.150697  L 342.034752 237.378673  L 343.673306 238.402942  L 345.31186 239.219641  L 346.950414 239.848299  L 348.588968 240.320853  L 351.866077 240.929536  L 355.143185 241.243464  L 358.420294 241.344052  L 361.697402 241.260108  L 368.251619 240.762548  L 373.167282 240.448382  L 376.44439 240.400701  L 379.721498 240.511973  L 384.637161 240.922571  L 394.468486 241.838151  L 401.022703 242.208582  L 407.57692 242.341906  L 428.878125 242.557479  L 428.878125 242.557479  " style="fill:none;stroke:#1f77b4;stroke-linecap:square;stroke-width:1.5;"></path>
+   </g>
+   <g id="patch_3">
+    <path d="M 20.878125 254.2  L 20.878125 7.2  " style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:miter;stroke-width:0.8;"></path>
+   </g>
+   <g id="patch_4">
+    <path d="M 428.878125 254.2  L 428.878125 7.2  " style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:miter;stroke-width:0.8;"></path>
+   </g>
+   <g id="patch_5">
+    <path d="M 20.878125 254.2  L 428.878125 254.2  " style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:miter;stroke-width:0.8;"></path>
+   </g>
+   <g id="patch_6">
+    <path d="M 20.878125 7.2  L 428.878125 7.2  " style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:miter;stroke-width:0.8;"></path>
+   </g>
+   <g id="legend_1">
+    <g id="patch_7">
+     <path d="M 341.764063 44.55625  L 421.878125 44.55625  Q 423.878125 44.55625 423.878125 42.55625  L 423.878125 14.2  Q 423.878125 12.2 421.878125 12.2  L 341.764063 12.2  Q 339.764063 12.2 339.764063 14.2  L 339.764063 42.55625  Q 339.764063 44.55625 341.764063 44.55625  z " style="fill:#ffffff;opacity:0.8;stroke:#cccccc;stroke-linejoin:miter;"></path>
+    </g>
+    <g id="line2d_8">
+     <path d="M 343.764063 20.298438  L 363.764063 20.298438  " style="fill:none;stroke:#1f77b4;stroke-linecap:square;stroke-width:1.5;"></path>
+    </g>
+    <g id="line2d_9"></g>
+    <g id="text_9">
+
+     <defs>
+      <path d="M 9.8125 72.90625  L 24.515625 72.90625  L 43.109375 23.296875  L 61.8125 72.90625  L 76.515625 72.90625  L 76.515625 0  L 66.890625 0  L 66.890625 64.015625  L 48.09375 14.015625  L 38.1875 14.015625  L 19.390625 64.015625  L 19.390625 0  L 9.8125 0  z " id="DejaVuSans-77"></path>
+      <path d="M 30.609375 48.390625  Q 23.390625 48.390625 19.1875 42.75  Q 14.984375 37.109375 14.984375 27.296875  Q 14.984375 17.484375 19.15625 11.84375  Q 23.34375 6.203125 30.609375 6.203125  Q 37.796875 6.203125 41.984375 11.859375  Q 46.1875 17.53125 46.1875 27.296875  Q 46.1875 37.015625 41.984375 42.703125  Q 37.796875 48.390625 30.609375 48.390625  z M 30.609375 56  Q 42.328125 56 49.015625 48.375  Q 55.71875 40.765625 55.71875 27.296875  Q 55.71875 13.875 49.015625 6.21875  Q 42.328125 -1.421875 30.609375 -1.421875  Q 18.84375 -1.421875 12.171875 6.21875  Q 5.515625 13.875 5.515625 27.296875  Q 5.515625 40.765625 12.171875 48.375  Q 18.84375 56 30.609375 56  z " id="DejaVuSans-111"></path>
+      <path d="M 45.40625 46.390625  L 45.40625 75.984375  L 54.390625 75.984375  L 54.390625 0  L 45.40625 0  L 45.40625 8.203125  Q 42.578125 3.328125 38.25 0.953125  Q 33.9375 -1.421875 27.875 -1.421875  Q 17.96875 -1.421875 11.734375 6.484375  Q 5.515625 14.40625 5.515625 27.296875  Q 5.515625 40.1875 11.734375 48.09375  Q 17.96875 56 27.875 56  Q 33.9375 56 38.25 53.625  Q 42.578125 51.265625 45.40625 46.390625  z M 14.796875 27.296875  Q 14.796875 17.390625 18.875 11.75  Q 22.953125 6.109375 30.078125 6.109375  Q 37.203125 6.109375 41.296875 11.75  Q 45.40625 17.390625 45.40625 27.296875  Q 45.40625 37.203125 41.296875 42.84375  Q 37.203125 48.484375 30.078125 48.484375  Q 22.953125 48.484375 18.875 42.84375  Q 14.796875 37.203125 14.796875 27.296875  z " id="DejaVuSans-100"></path>
+     </defs>
+     <g transform="translate(371.764063 23.798438)scale(0.1 -0.1)">
+      <use xlink:href="#DejaVuSans-77"></use>
+      <use x="86.279297" xlink:href="#DejaVuSans-111"></use>
+      <use x="147.460938" xlink:href="#DejaVuSans-100"></use>
+      <use x="210.9375" xlink:href="#DejaVuSans-101"></use>
+      <use x="272.460938" xlink:href="#DejaVuSans-108"></use>
+      <use x="300.244141" xlink:href="#DejaVuSans-101"></use>
+      <use x="361.767578" xlink:href="#DejaVuSans-100"></use>
+     </g>
+    </g>
+    <g id="patch_8">
+     <path d="M 343.764063 38.476563  L 363.764063 38.476563  L 363.764063 31.476563  L 343.764063 31.476563  z " style="fill:#ffbe4d;stroke:#ffa200;stroke-linejoin:miter;stroke-width:1.5;"></path>
+    </g>
+    <g id="text_10">
+
+     <defs>
+      <path d="M 39.40625 66.21875  Q 28.65625 66.21875 22.328125 58.203125  Q 16.015625 50.203125 16.015625 36.375  Q 16.015625 22.609375 22.328125 14.59375  Q 28.65625 6.59375 39.40625 6.59375  Q 50.140625 6.59375 56.421875 14.59375  Q 62.703125 22.609375 62.703125 36.375  Q 62.703125 50.203125 56.421875 58.203125  Q 50.140625 66.21875 39.40625 66.21875  z M 39.40625 74.21875  Q 54.734375 74.21875 63.90625 63.9375  Q 73.09375 53.65625 73.09375 36.375  Q 73.09375 19.140625 63.90625 8.859375  Q 54.734375 -1.421875 39.40625 -1.421875  Q 24.03125 -1.421875 14.8125 8.828125  Q 5.609375 19.09375 5.609375 36.375  Q 5.609375 53.65625 14.8125 63.9375  Q 24.03125 74.21875 39.40625 74.21875  z " id="DejaVuSans-79"></path>
+      <path d="M 48.6875 27.296875  Q 48.6875 37.203125 44.609375 42.84375  Q 40.53125 48.484375 33.40625 48.484375  Q 26.265625 48.484375 22.1875 42.84375  Q 18.109375 37.203125 18.109375 27.296875  Q 18.109375 17.390625 22.1875 11.75  Q 26.265625 6.109375 33.40625 6.109375  Q 40.53125 6.109375 44.609375 11.75  Q 48.6875 17.390625 48.6875 27.296875  z M 18.109375 46.390625  Q 20.953125 51.265625 25.265625 53.625  Q 29.59375 56 35.59375 56  Q 45.5625 56 51.78125 48.09375  Q 58.015625 40.1875 58.015625 27.296875  Q 58.015625 14.40625 51.78125 6.484375  Q 45.5625 -1.421875 35.59375 -1.421875  Q 29.59375 -1.421875 25.265625 0.953125  Q 20.953125 3.328125 18.109375 8.203125  L 18.109375 0  L 9.078125 0  L 9.078125 75.984375  L 18.109375 75.984375  z " id="DejaVuSans-98"></path>
+     </defs>
+     <g transform="translate(371.764063 38.476563)scale(0.1 -0.1)">
+      <use xlink:href="#DejaVuSans-79"></use>
+      <use x="78.710938" xlink:href="#DejaVuSans-98"></use>
+      <use x="142.1875" xlink:href="#DejaVuSans-115"></use>
+      <use x="194.287109" xlink:href="#DejaVuSans-101"></use>
+      <use x="255.810547" xlink:href="#DejaVuSans-114"></use>
+      <use x="296.923828" xlink:href="#DejaVuSans-118"></use>
+      <use x="356.103516" xlink:href="#DejaVuSans-101"></use>
+      <use x="417.626953" xlink:href="#DejaVuSans-100"></use>
+     </g>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pc69cc1174f">
+   <rect height="247" width="408" x="20.878125" y="7.2"></rect>
+  </clipPath>
+ </defs>
+</svg></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">report</span><span class="o">.</span><span class="n">save</span><span class="p">(</span>
+    <span class="s1">&#39;/tmp/exampville_dest_choice.html&#39;</span><span class="p">,</span>
+    <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+    <span class="n">metadata</span><span class="o">=</span><span class="n">m</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&#39;/tmp/exampville_dest_choice.html&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="itinerary.html" class="btn btn-neutral float-right" title="Itinerary Choice Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="202_exville_mc_logsums.html" class="btn btn-neutral float-left" title="202: Exampville Mode Choice Logsums" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2010-2019, Jeffrey Newman
+      <span class="lastupdated">
+        Last updated on Jun 05, 2020.
+      </span>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
